@@ -11,6 +11,13 @@
 |
 */
 
+
+Route::group(['prefix'=>'admin', 'namespace'=> 'Admin', 'middleware'=>['auth']], function(){
+    Route::get('/', 'DashboardController@dashboard')->name('admin.index');
+    Route::resource('/types', 'TypeController', ['as'=> 'admin']);
+//    Route::resource('/article', 'ArticleController', ['as'=> 'admin']);
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
