@@ -15,7 +15,9 @@
 Route::group(['prefix'=>'admin', 'namespace'=> 'Admin', 'middleware'=>['auth']], function(){
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
     Route::resource('/types', 'TypeController', ['as'=> 'admin']);
-//    Route::resource('/article', 'ArticleController', ['as'=> 'admin']);
+    Route::get('/offers/create/{type}', 'OfferController@create')->name('admin.offers.create');
+    Route::resource('/offers', 'OfferController', ['as'=> 'admin', 'except' => ['create']]);
+
 });
 
 Route::get('/', function () {

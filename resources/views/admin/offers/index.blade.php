@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-between mb-3">
             <h4 class="text-info">Предложения для клиентов</h4>
 
-            <a href="" class="btn btn-primary">
+            <a href="{{route('admin.offers.create', [ 'id' => 2 ])}}" class="btn btn-primary">
                 <div class="d-flex justify-content-between align-items-center">
                     <p class="m-0">Добавить</p>
                     <i class="ml-2 fas fa-plus"></i>
@@ -13,11 +13,12 @@
             </a>
         </div>
 
+        @forelse($offers as $offer)
 
         <div class="card mb-4">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="m-0">Название</h5>
+                    <h5 class="m-0">{{$offer->name}}</h5>
                     <div class="d-flex align-items-center">
                         <a href=""><i class="far fa-edit"></i></a>
                         <form onsubmit="if(confirm('Удалить?')){return true}else{return false}" action="" method="post">
@@ -35,8 +36,11 @@
                 </blockquote>
             </div>
         </div>
+        @empty
+            <hr>
+            <h5 class="text-secondary text-center">Данные отсутствуют</h5>
+        @endforelse
 
-
-
+        <offers-tab-component :offers="{{$offers}}"></offers-tab-component>
     </div>
 @endsection
