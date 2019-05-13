@@ -35,14 +35,14 @@
                     <li class="nav-item">
                         <a href="{{route('admin.types.index')}}" class="nav-link">Типы</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{route('admin.offers.index')}}" class="nav-link">Предложения</a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" aria-expanded="false" role="button" data-toggle="dropdown" class="dropdown-toggle">Блог</a>
-                        <ul class="dropdown-menu" role="menu">
-
-                        </ul>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Предложения
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{route('admin.credits.index')}}">Кредиты</a>
+                            <a class="dropdown-item" href="{{route('admin.contributions.index')}}">Вклады</a>
+                        </div>
                     </li>
                 </ul>
 
