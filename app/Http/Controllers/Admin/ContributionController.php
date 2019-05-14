@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contribution;
+use App\Http\Requests\ContributionRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 
 class ContributionController extends Controller
 {
@@ -27,7 +29,7 @@ class ContributionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.contributions.create');
     }
 
     /**
@@ -36,9 +38,10 @@ class ContributionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContributionRequest $request)
     {
-        //
+        Contribution::create($request->all());
+        return redirect()->route('admin.contributions.index');
     }
 
     /**
@@ -60,7 +63,9 @@ class ContributionController extends Controller
      */
     public function edit(Contribution $contribution)
     {
-        //
+        return view('admin.contributions.edit',[
+            'contribution' => $contribution
+        ]);
     }
 
     /**
@@ -70,9 +75,18 @@ class ContributionController extends Controller
      * @param  \App\Contribution  $contribution
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contribution $contribution)
+    public function update(ContributionRequest $request, Contribution $contribution)
     {
-        //
+
+        $inputs = $request->all();
+        $cheks = [ 'isReplenishment', 'isWithdrawal', 'isCapitalization'];
+        foreach ($cheks as $item){
+            if(!$request->has($item)){
+               $inputs = array_merge($inputs, [ $item=> '0']);
+            }
+        }
+        $contribution->update($inputs);
+        return redirect()->route('admin.contributions.index');
     }
 
     /**
@@ -83,6 +97,7 @@ class ContributionController extends Controller
      */
     public function destroy(Contribution $contribution)
     {
-        //
+        $contribution->delete();
+        return redirect()->route('admin.contributions.index');
     }
 }

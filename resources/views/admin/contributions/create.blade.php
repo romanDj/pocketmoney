@@ -3,16 +3,16 @@
 @section('content')
     <div class="container">
         @component('admin.components.breadcrumb')
-            @slot('title') Создание кредита @endslot
+            @slot('title') Создание вклада @endslot
             @slot('parent') Главная @endslot
-            @slot('active') Кредиты @endslot
+            @slot('active') Вклады @endslot
         @endcomponent
         <hr>
 
 
-        <form class="form" action="{{route('admin.credits.store')}}" method="post">
+        <form class="form" action="{{route('admin.contributions.store')}}" method="post">
             {{ csrf_field() }}
-            @include('admin.credits.partials.form')
+            @include('admin.contributions.partials.form')
         </form>
 
     </div>

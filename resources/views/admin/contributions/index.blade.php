@@ -33,14 +33,21 @@
                 </div>
                 <div class="card-body">
                     <blockquote class="blockquote mb-0">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-start align-items-center">
+
+                            <div class="border-right border-secondary pr-3 align-self-stretch mr-3 d-flex align-items-center">
+                                <div>
+                                    <h3>{{$contribution->percent}}%</h3> годовых
+                                </div>
+                            </div>
                             <div>
-                                <p>{{$contribution->requirements}}</p>
+                                <p class="card-text mb-0">{{ $contribution->isReplenishment ? 'Пополняемый': 'Без пополнения'  }}</p>
+                                <p class="card-text mb-0">{{ $contribution->isWithdrawal ? 'Есть возможность снятия': 'Без снятия'  }}</p>
+                                <p class="card-text mb-0">{{ $contribution->isCapitalization? 'С капитализацией': 'Без капитализации'  }}</p>
+
                                 <p class="text-info">Минимальный срок от {{$contribution->min_term}} месяцев</p>
                             </div>
-                            <div class="border-left border-secondary pl-3">
-                                <h3>{{$contribution->percent}}%</h3> годовых
-                            </div>
+
                         </div>
 
 

@@ -18,4 +18,5 @@ class Contribution extends Model
         'created_by',
         'modified_by'
     ];
+
 }
