@@ -2,7 +2,9 @@
 
 namespace App;
 
+
 use Illuminate\Database\Eloquent\Model;
+use Validator;
 
 class Credit extends Model
 {
@@ -17,16 +19,4 @@ class Credit extends Model
         'modified_by'
     ];
 
-    protected $rules = [
-        'name' => 'required',
-        'percent' => 'required',
-    ];
-
-    public function validate($data)
-    {
-//        // make a new validator object
-//        $v = Validator::make($data, $this->rules);
-//        // return the result
-//        return $v->passes();
-    }
 }

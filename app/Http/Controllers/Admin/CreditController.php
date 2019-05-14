@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Credit;
+use App\Http\Requests\CreditRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 
 class CreditController extends Controller
 {
@@ -36,7 +38,7 @@ class CreditController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreditRequest $request)
     {
         Credit::create($request->all());
         return redirect()->route('admin.credits.index');
@@ -73,7 +75,7 @@ class CreditController extends Controller
      * @param  \App\Credit  $credit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Credit $credit)
+    public function update(CreditRequest $request, Credit $credit)
     {
         $credit->update($request->all());
         return redirect()->route('admin.credits.index');
