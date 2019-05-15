@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Client;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -52,6 +53,13 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'name.required' => 'Поле "Имя" обязательно для заполнения.',
+            'email.required' => 'Поле "E-Mail" обязательно для заполнения.',
+            'email.unique' => 'Аккаунт с таким "E-Mail" уже существует.',
+            'password.required' => 'Поле "Пароль" обязательно для заполнения.',
+            'password.min' => 'Поле "Пароль" должно содержать не менее 8 символов.',
+            'password.confirmed' => 'Поле "Пароль" и "Подтвердите пароль" не совпадают.',
         ]);
     }
 
@@ -63,11 +71,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role' => 'A'
+            'role' => 'C'
         ]);
+        $user->client()->create();
+        return $user;
     }
 }

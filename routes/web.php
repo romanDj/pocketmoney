@@ -22,10 +22,12 @@ Route::group(['prefix'=>'admin', 'namespace'=> 'Admin', 'middleware'=>['auth']],
 
 });
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::group(['prefix'=>'profile'],function (){
+    Route::get('/', 'RoomController@index')->name('profile.view');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
