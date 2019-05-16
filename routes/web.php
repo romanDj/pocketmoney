@@ -26,6 +26,8 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'profile'],function (){
     Route::get('/', 'RoomController@index')->name('profile.view');
+    Route::get('/edit', 'RoomController@edit')->name('profile.edit');
+    Route::put('/update', 'RoomController@update')->name('profile.update');
 });
 
 Auth::routes();
