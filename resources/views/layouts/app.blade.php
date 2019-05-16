@@ -38,6 +38,9 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                             <li class="nav-item">
+                                <a class="nav-link font-weight-bold" href="{{ route('login') }}">Главная</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link font-weight-bold" href="{{ route('login') }}">Счета</a>
                             </li>
                             <li class="nav-item">
