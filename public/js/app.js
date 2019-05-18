@@ -1754,6 +1754,278 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalcContributionsComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CalcContributionsComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['contributions', 'url_score'],
+  data: function data() {
+    return {
+      contribution_list: [],
+      summ: 1000,
+      time: 90,
+      every: 0,
+      compare: false,
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      select_btn: ''
+    };
+  },
+  mounted: function mounted() {
+    this.contribution_list = this.contributions.map(function (contribution) {
+      return Object.assign({
+        income: 0,
+        error: '',
+        full_summ: 0,
+        rate: 0
+      }, contribution);
+    });
+    this.calculate();
+  },
+  methods: {
+    validateRange: function validateRange(el, min, max) {
+      if (this[el] < min) {
+        this[el] = min;
+      } else if (this[el] > max) {
+        this[el] = max;
+      }
+    },
+    selectContribution: function selectContribution(name) {
+      this.select_btn = "".concat(name, " Hi!");
+    },
+    compareWin: function compareWin() {
+      this.compare = !this.compare;
+    },
+    printDoc: function printDoc() {
+      window.print();
+    },
+    calculate: function calculate() {
+      for (var i = 0; i < this.contribution_list.length; i++) {
+        if (this.time >= this.contribution_list[i].min_term * 30) {
+          this.contribution_list[i].error = '';
+          var whole_months = Math.floor(Number(this.time) / 30);
+          var whole_days = Number(this.time) - whole_months * 30;
+          var every_month_income = [];
+          var this_income = 0;
+
+          if (this.contribution_list[i].isReplenishment == 1 && this.contribution_list[i].isCapitalization == 1) {
+            //с пополнением и с капитализацией
+            var last_month_income = 0;
+
+            for (var m = 0; m < whole_months; m++) {
+              var inc = 0;
+
+              if (m == 0) {
+                inc = Number(this.summ) * this.contribution_list[i].percent / 100 / 12;
+              } else {
+                inc = Number(last_month_income) * this.contribution_list[i].percent / 100 / 12;
+              }
+
+              last_month_income = Number(this.summ) + inc + (m + 1) * Number(this.every);
+              this_income += inc;
+              every_month_income.push(inc);
+            }
+
+            if (whole_days > 0) {
+              var _inc = last_month_income * whole_days * this.contribution_list[i].percent / 100 / 12 / 30;
+
+              this_income += _inc;
+              every_month_income.push(_inc);
+            }
+
+            this.contribution_list[i].full_summ = Math.round((this_income + last_month_income) * 100) / 100;
+          } else if (this.contribution_list[i].isReplenishment == 1 && this.contribution_list[i].isCapitalization == 0) {
+            //с пополнением и без капитализации
+            var _last_month_income = 0;
+
+            for (var _m = 0; _m < whole_months; _m++) {
+              var _inc2 = 0;
+
+              if (_m == 0) {
+                _inc2 = Number(this.summ) * this.contribution_list[i].percent / 100 / 12;
+              } else {
+                _inc2 = Number(_last_month_income) * this.contribution_list[i].percent / 100 / 12;
+              }
+
+              _last_month_income = Number(this.summ) + (_m + 1) * Number(this.every);
+              this_income += _inc2;
+              every_month_income.push(_inc2);
+            }
+
+            if (whole_days > 0) {
+              var _inc3 = _last_month_income * whole_days * this.contribution_list[i].percent / 100 / 12 / 30;
+
+              this_income += _inc3;
+              every_month_income.push(_inc3);
+            }
+
+            this.contribution_list[i].full_summ = Math.round((this_income + _last_month_income) * 100) / 100;
+          } else {
+            //без пополнения и без капитализации
+            for (var _m2 = 0; _m2 < whole_months; _m2++) {
+              var _inc4 = Number(this.summ) * this.contribution_list[i].percent / 100 / 12;
+
+              this_income += _inc4;
+              every_month_income.push(_inc4);
+            }
+
+            if (whole_days > 0) {
+              var _inc5 = Number(this.summ) * whole_days * this.contribution_list[i].percent / 100 / 12 / 30;
+
+              this_income += _inc5;
+              every_month_income.push(_inc5);
+            }
+
+            this.contribution_list[i].full_summ = Math.round((this_income + Number(this.summ)) * 100) / 100;
+          }
+
+          this.contribution_list[i].income = Math.round(this_income * 100) / 100;
+          this.contribution_list[i].rate = Math.round(this_income / Number(this.summ) / Number(this.time) * 360 * 100 * 100) / 100;
+        } else {
+          this.contribution_list[i].error = "\u041C\u0438\u043D\u0438\u043C\u0430\u043B\u044C\u043D\u044B\u0439 \u0441\u0440\u043E\u043A ".concat(this.contribution_list[i].min_term, " \u043C\u0435\u0441.");
+        }
+      }
+    }
+  },
+  watch: {
+    summ: function summ() {
+      this.calculate();
+    },
+    time: function time() {
+      this.calculate();
+    },
+    every: function every() {
+      this.calculate();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
@@ -37112,6 +37384,469 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalcContributionsComponent.vue?vue&type=template&id=fa14a48c&":
+/*!*****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CalcContributionsComponent.vue?vue&type=template&id=fa14a48c& ***!
+  \*****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c(
+      "div",
+      { staticClass: "col-md-11 col-sm-12" },
+      [
+        _c("h4", { staticClass: "text-purple none-print" }, [
+          _vm._v("Рассчитать доход по вкладам")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "hr_gradient mb-4 none-print" }),
+        _vm._v(" "),
+        _c(
+          "transition",
+          { attrs: { name: "fade", appear: "", mode: "out-in" } },
+          [
+            !_vm.compare
+              ? _c(
+                  "div",
+                  { key: "calc", staticClass: "row position-relative" },
+                  [
+                    _c("form", { staticClass: "col-md-7" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [_vm._v("Сумма")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.summ,
+                                expression: "summ"
+                              }
+                            ],
+                            staticClass: "form-control number-input",
+                            attrs: { type: "number", required: "" },
+                            domProps: { value: _vm.summ },
+                            on: {
+                              blur: function($event) {
+                                return _vm.validateRange("summ", 1000, 10000000)
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.summ = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "input-group-append" }, [
+                            _c("span", { staticClass: "input-group-text" }, [
+                              _vm._v("Руб.")
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.summ,
+                              expression: "summ"
+                            }
+                          ],
+                          staticClass: "w-100 mt-1",
+                          attrs: {
+                            type: "range",
+                            min: "1000",
+                            max: "10000000"
+                          },
+                          domProps: { value: _vm.summ },
+                          on: {
+                            __r: function($event) {
+                              _vm.summ = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "d-flex justify-content-between",
+                            staticStyle: { position: "relative", top: "-10px" }
+                          },
+                          [
+                            _c("p", { staticClass: "m-0 p-0" }, [
+                              _vm._v("1 тыс.")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "m-0 p-0" }, [
+                              _vm._v("10 млн")
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [_vm._v("Срок")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.time,
+                                expression: "time"
+                              }
+                            ],
+                            staticClass: "form-control number-input",
+                            attrs: { type: "number", required: "" },
+                            domProps: { value: _vm.time },
+                            on: {
+                              blur: function($event) {
+                                return _vm.validateRange("time", 90, 1825)
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.time = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "input-group-append" }, [
+                            _c("span", { staticClass: "input-group-text" }, [
+                              _vm._v("дней")
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.time,
+                              expression: "time"
+                            }
+                          ],
+                          staticClass: "w-100 mt-1",
+                          attrs: { type: "range", min: "90", max: "1825" },
+                          domProps: { value: _vm.time },
+                          on: {
+                            __r: function($event) {
+                              _vm.time = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "d-flex justify-content-between",
+                            staticStyle: { position: "relative", top: "-10px" }
+                          },
+                          [
+                            _c("p", { staticClass: "m-0 p-0" }, [
+                              _vm._v("3 мес.")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "m-0 p-0" }, [
+                              _vm._v("5 лет")
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [
+                          _vm._v("Ежемесячное пополнение")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.every,
+                                expression: "every"
+                              }
+                            ],
+                            staticClass: "form-control number-input",
+                            attrs: { type: "number", required: "" },
+                            domProps: { value: _vm.every },
+                            on: {
+                              blur: function($event) {
+                                return _vm.validateRange("every", 0, 5000000)
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.every = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "input-group-append" }, [
+                            _c("span", { staticClass: "input-group-text" }, [
+                              _vm._v("Руб.")
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.every,
+                              expression: "every"
+                            }
+                          ],
+                          staticClass: "w-100 mt-1",
+                          attrs: { type: "range", min: "0", max: "5000000" },
+                          domProps: { value: _vm.every },
+                          on: {
+                            __r: function($event) {
+                              _vm.every = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "d-flex justify-content-between",
+                            staticStyle: { position: "relative", top: "-10px" }
+                          },
+                          [
+                            _c("p", { staticClass: "m-0 p-0" }, [
+                              _vm._v("0 тыс.")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "m-0 p-0" }, [
+                              _vm._v("5 млн")
+                            ])
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-5" }, [
+                      _c("div", { staticClass: "card border-secondary mb-3" }, [
+                        _c(
+                          "div",
+                          { staticClass: "card-body" },
+                          _vm._l(_vm.contribution_list, function(item) {
+                            return _c("div", { staticClass: "mb-4" }, [
+                              _c("h4", [_vm._v(_vm._s(item.name))]),
+                              _vm._v(" "),
+                              _c("label", { attrs: { for: "" } }, [
+                                _vm._v("Доход по вкладу:")
+                              ]),
+                              _vm._v(" "),
+                              item.error == ""
+                                ? _c("p", { staticClass: "border-bottom" }, [
+                                    _vm._v(_vm._s(item.income) + " Руб.")
+                                  ])
+                                : _c(
+                                    "p",
+                                    {
+                                      staticClass: "border-bottom text-danger"
+                                    },
+                                    [_vm._v(_vm._s(item.error))]
+                                  )
+                            ])
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-outline-success m-2",
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.compareWin($event)
+                              }
+                            }
+                          },
+                          [_vm._v("Сравнить параметры")]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              : _c(
+                  "div",
+                  {
+                    key: "compare",
+                    staticClass: "row position-relative justify-content-center"
+                  },
+                  [
+                    _c("div", { staticClass: "col-md-10 " }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "mb-3 none-print d-flex justify-content-between"
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.compareWin($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-arrow-left" }),
+                              _vm._v(" вернуться к калькулятору")
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.printDoc($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-print" }),
+                              _vm._v(" сформировать выписку")
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "form",
+                        { attrs: { action: _vm.url_score, method: "post" } },
+                        [
+                          _c("input", {
+                            attrs: { type: "hidden", name: "_token" },
+                            domProps: { value: _vm.csrf }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            attrs: { type: "hidden", name: "lol" },
+                            domProps: { value: _vm.select_btn }
+                          }),
+                          _vm._v(" "),
+                          _c("table", { staticClass: "table table-bordered" }, [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", { attrs: { scope: "col" } }, [
+                                  _vm._v("Название")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { attrs: { scope: "col" } }, [
+                                  _vm._v("Доход")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { attrs: { scope: "col" } }, [
+                                  _vm._v("Сумма к концу срока")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", { attrs: { scope: "col" } }, [
+                                  _vm._v("Ставка")
+                                ]),
+                                _vm._v(" "),
+                                _c("th", {
+                                  staticClass: "none-print",
+                                  attrs: { scope: "col" }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.contribution_list, function(item) {
+                                return item.error == ""
+                                  ? _c("tr", [
+                                      _c("th", { attrs: { scope: "row" } }, [
+                                        _vm._v(_vm._s(item.name))
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(_vm._s(item.income) + " Руб.")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(_vm._s(item.full_summ) + " Руб.")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", [
+                                        _vm._v(_vm._s(item.rate) + "%")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("td", { staticClass: "none-print" }, [
+                                        _c("input", {
+                                          staticClass:
+                                            "btn btn-outline-success",
+                                          attrs: {
+                                            type: "submit",
+                                            value: "Открыть вклад"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.selectContribution(
+                                                item.name
+                                              )
+                                            }
+                                          }
+                                        })
+                                      ])
+                                    ])
+                                  : _vm._e()
+                              }),
+                              0
+                            )
+                          ])
+                        ]
+                      )
+                    ])
+                  ]
+                )
+          ]
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -49393,6 +50128,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('offers-tab-component', __webpack_require__(/*! ./components/OffersTabComponent.vue */ "./resources/js/components/OffersTabComponent.vue")["default"]);
+Vue.component('calc-contributions-component', __webpack_require__(/*! ./components/CalcContributionsComponent.vue */ "./resources/js/components/CalcContributionsComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -49460,6 +50196,75 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/CalcContributionsComponent.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/CalcContributionsComponent.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CalcContributionsComponent_vue_vue_type_template_id_fa14a48c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CalcContributionsComponent.vue?vue&type=template&id=fa14a48c& */ "./resources/js/components/CalcContributionsComponent.vue?vue&type=template&id=fa14a48c&");
+/* harmony import */ var _CalcContributionsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CalcContributionsComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/CalcContributionsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CalcContributionsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CalcContributionsComponent_vue_vue_type_template_id_fa14a48c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CalcContributionsComponent_vue_vue_type_template_id_fa14a48c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/CalcContributionsComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/CalcContributionsComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/CalcContributionsComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CalcContributionsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CalcContributionsComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalcContributionsComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CalcContributionsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/CalcContributionsComponent.vue?vue&type=template&id=fa14a48c&":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/CalcContributionsComponent.vue?vue&type=template&id=fa14a48c& ***!
+  \***********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CalcContributionsComponent_vue_vue_type_template_id_fa14a48c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CalcContributionsComponent.vue?vue&type=template&id=fa14a48c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalcContributionsComponent.vue?vue&type=template&id=fa14a48c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CalcContributionsComponent_vue_vue_type_template_id_fa14a48c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CalcContributionsComponent_vue_vue_type_template_id_fa14a48c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

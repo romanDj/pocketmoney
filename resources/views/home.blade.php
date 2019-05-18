@@ -14,7 +14,7 @@
         <div class="col-md-8">
             <h3 class="font-weight-bold text-purple">Вклады</h3>
             <div class="hr_gradient mb-3"></div>
-            <div class="card-columns mb-4">
+            <div class="card-columns mb-2">
 
                 @foreach($contributions as $contribution)
                     <div class="card">
@@ -28,15 +28,13 @@
 
                             <p class="card-text font-weight-bold text-purple">Минимальный срок от {{$contribution->min_term}} месяцев</p>
                             <h4 class="card-text font-weight-bold text-success">{{$contribution->percent}}% годовых</h4>
-                            <a href="#" >
-                                Рассчитать
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
+
                         </div>
                     </div>
                 @endforeach
 
             </div>
+            <a href="{{route('calc.contribution')}}" class="btn btn-outline-success d-block mb-4">Рассчитать и сравнить <i class="fas fa-arrow-right"></i></a>
             <h3 class="font-weight-bold text-purple">Кредиты</h3>
             <div class="hr_gradient mb-3"></div>
             <div class="card-columns mb-4">

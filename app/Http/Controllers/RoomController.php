@@ -37,4 +37,9 @@ class RoomController extends Controller
         ]);
         return redirect()->route('profile.view');
     }
+
+    //открытие нового счета
+    public function openScore(Request $request){
+        return response()->json($request->input('lol'),200 ,[],JSON_UNESCAPED_UNICODE);
+    }
 }

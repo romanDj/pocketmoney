@@ -22,6 +22,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('offers-tab-component', require('./components/OffersTabComponent.vue').default);
+Vue.component('calc-contributions-component', require('./components/CalcContributionsComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

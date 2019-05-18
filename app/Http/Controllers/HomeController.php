@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -28,6 +28,12 @@ class HomeController extends Controller
         return view('home', [
             'contributions' => Contribution::all(),
             'credits' => Credit::all()
+        ]);
+    }
+
+    public function calcContribution(){
+        return view('calculators.contributions', [
+            'contributions' => json_encode(Contribution::all(),  JSON_UNESCAPED_UNICODE)
         ]);
     }
 }

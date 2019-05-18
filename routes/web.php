@@ -11,6 +11,12 @@
 |
 */
 
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::group(['prefix'=>'calc'], function(){
+    Route::get('/contributions', 'HomeController@calcContribution')->name('calc.contribution');
+});
+
 
 Route::group(['prefix'=>'admin', 'namespace'=> 'Admin', 'middleware'=>['auth']], function(){
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
@@ -22,12 +28,11 @@ Route::group(['prefix'=>'admin', 'namespace'=> 'Admin', 'middleware'=>['auth']],
 
 });
 
-Route::get('/', 'HomeController@index')->name('home');
-
-Route::group(['prefix'=>'profile'],function (){
+Route::group(['prefix'=>'profile', 'middleware'=>['auth']],function (){
     Route::get('/', 'RoomController@index')->name('profile.view');
     Route::get('/edit', 'RoomController@edit')->name('profile.edit');
     Route::put('/update', 'RoomController@update')->name('profile.update');
+    Route::post('/score', 'RoomController@openScore')->name('profile.score');
 });
 
 Auth::routes();
