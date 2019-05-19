@@ -46,7 +46,7 @@
                             <p class="card-text">{{$credit->requirements}}</p>
                             <p class="card-text font-weight-bold text-purple">Минимальный срок от {{$credit->min_term}} месяцев</p>
                             <h4 class="card-text font-weight-bold text-success">{{$credit->percent}}% годовых</h4>
-                            <a href="#" >
+                            <a href="{{route('calc.credit', $credit)}}" >
                                 Рассчитать
                                 <i class="fas fa-arrow-right"></i>
                             </a>

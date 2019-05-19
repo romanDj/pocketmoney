@@ -36,4 +36,10 @@ class HomeController extends Controller
             'contributions' => json_encode(Contribution::all(),  JSON_UNESCAPED_UNICODE)
         ]);
     }
+
+    public function calcCredit(Credit $credit){
+        return view('calculators.credit', [
+            'credit' => json_encode($credit,  JSON_UNESCAPED_UNICODE)
+        ]);
+    }
 }

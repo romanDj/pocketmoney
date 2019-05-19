@@ -2026,6 +2026,253 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalcCreditComponent.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CalcCreditComponent.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['contributions', 'url_score', 'credit'],
+  data: function data() {
+    return {
+      contribution_list: [],
+      this_credit: {},
+      summ: 1000,
+      time: 90,
+      compare: false,
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      select_btn: '',
+      schedule: [],
+      months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+    };
+  },
+  mounted: function mounted() {
+    this.this_credit = Object.assign({
+      payment: 0,
+      overpayment: 0,
+      full_summ: 0
+    }, this.credit);
+    this.time = this.this_credit.min_term;
+    this.calculate();
+  },
+  methods: {
+    validateRange: function validateRange(el, min, max) {
+      if (this[el] < min) {
+        this[el] = min;
+      } else if (this[el] > max) {
+        this[el] = max;
+      }
+    },
+    selectContribution: function selectContribution(name) {
+      this.select_btn = "".concat(name, " Hi!");
+    },
+    compareWin: function compareWin() {
+      this.compare = !this.compare;
+    },
+    printDoc: function printDoc() {
+      window.print();
+    },
+    calculate: function calculate() {
+      //отчищаем поля для переращета
+      this.schedule = [];
+      this.this_credit.overpayment = 0;
+      this.this_credit.full_summ = 0;
+      var d_percent = this.this_credit.percent / 100;
+      this.this_credit.payment = Math.round(Number(this.summ) * 100 * (d_percent / 12 + d_percent / 12 / (Math.pow(1 + d_percent / 12, Number(this.time)) - 1))) / 100;
+      var this_year = new Date().getFullYear();
+      var this_month = new Date().getMonth();
+
+      for (var i = 0; i < this.time; i++) {
+        if (i == 0) {
+          var percent = Math.round(d_percent / 12 * Number(this.summ) * 100) / 100;
+          var dolg = Math.round((this.this_credit.payment - percent) * 100) / 100;
+          this.schedule.push({
+            month: this.months[this_month] + ", " + this_year,
+            percent: percent,
+            payment: this.this_credit.payment,
+            dolg: dolg,
+            remainder: Math.round((Number(this.summ) - dolg) * 100) / 100
+          });
+        } else if (i + 1 == this.time) {
+          this_month++;
+
+          if (this_month > 11) {
+            this_year++;
+            this_month = 0;
+          }
+
+          var _percent = Math.round(d_percent / 12 * this.schedule[i - 1].remainder * 100) / 100;
+
+          this.schedule.push({
+            month: this.months[this_month] + ", " + this_year,
+            percent: _percent,
+            payment: _percent + this.schedule[i - 1].remainder,
+            dolg: this.schedule[i - 1].remainder,
+            remainder: 0
+          });
+        } else {
+          this_month++;
+
+          if (this_month > 11) {
+            this_year++;
+            this_month = 0;
+          }
+
+          var _percent2 = Math.round(d_percent / 12 * this.schedule[i - 1].remainder * 100) / 100;
+
+          var _dolg = Math.round((this.this_credit.payment - _percent2) * 100) / 100;
+
+          var remainder = Math.round((this.schedule[i - 1].remainder - _dolg) * 100) / 100;
+          this.schedule.push({
+            month: this.months[this_month] + ", " + this_year,
+            percent: _percent2,
+            payment: this.this_credit.payment,
+            dolg: _dolg,
+            remainder: remainder
+          });
+        }
+      }
+
+      for (var _i = 0; _i < this.schedule.length; _i++) {
+        this.this_credit.overpayment += this.schedule[_i].percent;
+        this.this_credit.full_summ += this.schedule[_i].payment;
+      }
+
+      this.this_credit.overpayment = Math.round(this.this_credit.overpayment * 100) / 100;
+      this.this_credit.full_summ = Math.round(this.this_credit.full_summ * 100) / 100;
+    }
+  },
+  watch: {
+    summ: function summ() {
+      this.calculate();
+    },
+    time: function time() {
+      this.calculate();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
@@ -37847,6 +38094,400 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalcCreditComponent.vue?vue&type=template&id=0c7e5d58&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/CalcCreditComponent.vue?vue&type=template&id=0c7e5d58& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c(
+      "div",
+      { staticClass: "col-md-11 col-sm-12" },
+      [
+        _c("h4", { staticClass: "text-purple none-print" }, [
+          _vm._v("Расчёт кредита")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "hr_gradient mb-4 none-print" }),
+        _vm._v(" "),
+        _c(
+          "transition",
+          { attrs: { name: "fade", appear: "", mode: "out-in" } },
+          [
+            !_vm.compare
+              ? _c(
+                  "div",
+                  { key: "calc", staticClass: "row position-relative" },
+                  [
+                    _c("form", { staticClass: "col-md-7" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [_vm._v("Сумма")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.summ,
+                                expression: "summ"
+                              }
+                            ],
+                            staticClass: "form-control number-input",
+                            attrs: { type: "number", required: "" },
+                            domProps: { value: _vm.summ },
+                            on: {
+                              blur: function($event) {
+                                return _vm.validateRange("summ", 1000, 5000000)
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.summ = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "input-group-append" }, [
+                            _c("span", { staticClass: "input-group-text" }, [
+                              _vm._v("Руб.")
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.summ,
+                              expression: "summ"
+                            }
+                          ],
+                          staticClass: "w-100 mt-1",
+                          attrs: { type: "range", min: "1000", max: "5000000" },
+                          domProps: { value: _vm.summ },
+                          on: {
+                            __r: function($event) {
+                              _vm.summ = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "d-flex justify-content-between",
+                            staticStyle: { position: "relative", top: "-10px" }
+                          },
+                          [
+                            _c("p", { staticClass: "m-0 p-0" }, [
+                              _vm._v("1 тыс.")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "m-0 p-0" }, [
+                              _vm._v("5 млн")
+                            ])
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", { attrs: { for: "" } }, [_vm._v("Срок")]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.time,
+                                expression: "time"
+                              }
+                            ],
+                            staticClass: "form-control number-input",
+                            attrs: { type: "number", required: "" },
+                            domProps: { value: _vm.time },
+                            on: {
+                              blur: function($event) {
+                                return _vm.validateRange(
+                                  "time",
+                                  _vm.this_credit.min_term,
+                                  120
+                                )
+                              },
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.time = $event.target.value
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "input-group-append" }, [
+                            _c("span", { staticClass: "input-group-text" }, [
+                              _vm._v("мес.")
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.time,
+                              expression: "time"
+                            }
+                          ],
+                          staticClass: "w-100 mt-1",
+                          attrs: {
+                            type: "range",
+                            min: _vm.this_credit.min_term,
+                            max: "120"
+                          },
+                          domProps: { value: _vm.time },
+                          on: {
+                            __r: function($event) {
+                              _vm.time = $event.target.value
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "d-flex justify-content-between",
+                            staticStyle: { position: "relative", top: "-10px" }
+                          },
+                          [
+                            _c("p", { staticClass: "m-0 p-0" }, [
+                              _vm._v(_vm._s(_vm.this_credit.min_term) + " мес.")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "m-0 p-0" }, [
+                              _vm._v("10 лет")
+                            ])
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-5" }, [
+                      _c("div", { staticClass: "card border-secondary mb-3" }, [
+                        _c("div", { staticClass: "card-body" }, [
+                          _c("div", { staticClass: "mb-4" }, [
+                            _c("h4", [_vm._v(_vm._s(_vm.this_credit.name))]),
+                            _vm._v(" "),
+                            _c("h5", { staticClass: "text-purple mb-3" }, [
+                              _vm._v(
+                                "Процентная ставка " +
+                                  _vm._s(_vm.this_credit.percent) +
+                                  "%"
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "" } }, [
+                              _vm._v("Ежемесячный платеж:")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "border-bottom" }, [
+                              _vm._v(_vm._s(_vm.this_credit.payment) + " Руб.")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "mb-4" }, [
+                            _c("label", { attrs: { for: "" } }, [
+                              _vm._v("Ориентировочная переплата по кредиту:")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "border-bottom" }, [
+                              _vm._v(
+                                _vm._s(_vm.this_credit.overpayment) + " Руб."
+                              )
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-outline-success m-2",
+                            attrs: { href: "#" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.compareWin($event)
+                              }
+                            }
+                          },
+                          [_vm._v("График платежей")]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              : _c(
+                  "div",
+                  {
+                    key: "compare",
+                    staticClass: "row position-relative justify-content-center"
+                  },
+                  [
+                    _c("div", { staticClass: "col-md-10 " }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "mb-3 none-print d-flex justify-content-between"
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.compareWin($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-arrow-left" }),
+                              _vm._v(" вернуться к калькулятору")
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.printDoc($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", { staticClass: "fas fa-print" }),
+                              _vm._v(" сформировать выписку")
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "form",
+                        { attrs: { action: _vm.url_score, method: "post" } },
+                        [
+                          _c("input", {
+                            attrs: { type: "hidden", name: "_token" },
+                            domProps: { value: _vm.csrf }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            attrs: { type: "hidden", name: "lol" },
+                            domProps: { value: _vm.select_btn }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "table",
+                            {
+                              staticClass: "table table-bordered table-striped"
+                            },
+                            [
+                              _c("thead", [
+                                _c("tr", [
+                                  _c("td", [_vm._v("№ платежа")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v("Дата платежа")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v("Сумма платежа")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v("Основной долг")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v("Начисленные проценты")]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v("Остаток задолженности")])
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "tbody",
+                                [
+                                  _vm._l(_vm.schedule, function(item, key) {
+                                    return _c("tr", [
+                                      _c("td", [_vm._v(_vm._s(key + 1))]),
+                                      _vm._v(" "),
+                                      _c("td", [_vm._v(_vm._s(item.month))]),
+                                      _vm._v(" "),
+                                      _c("td", [_vm._v(_vm._s(item.payment))]),
+                                      _vm._v(" "),
+                                      _c("td", [_vm._v(_vm._s(item.dolg))]),
+                                      _vm._v(" "),
+                                      _c("td", [_vm._v(_vm._s(item.percent))]),
+                                      _vm._v(" "),
+                                      _c("td", [_vm._v(_vm._s(item.remainder))])
+                                    ])
+                                  }),
+                                  _vm._v(" "),
+                                  _c("tr", [
+                                    _c("td", { attrs: { colspan: "2" } }, [
+                                      _vm._v("Итого по кредиту:")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(_vm._s(_vm.this_credit.full_summ))
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [_vm._v(_vm._s(_vm.summ))]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(_vm.this_credit.overpayment)
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td")
+                                  ])
+                                ],
+                                2
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  ]
+                )
+          ]
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -50129,6 +50770,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('offers-tab-component', __webpack_require__(/*! ./components/OffersTabComponent.vue */ "./resources/js/components/OffersTabComponent.vue")["default"]);
 Vue.component('calc-contributions-component', __webpack_require__(/*! ./components/CalcContributionsComponent.vue */ "./resources/js/components/CalcContributionsComponent.vue")["default"]);
+Vue.component('calc-credit-component', __webpack_require__(/*! ./components/CalcCreditComponent.vue */ "./resources/js/components/CalcCreditComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -50263,6 +50905,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CalcContributionsComponent_vue_vue_type_template_id_fa14a48c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CalcContributionsComponent_vue_vue_type_template_id_fa14a48c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/CalcCreditComponent.vue":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/CalcCreditComponent.vue ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CalcCreditComponent_vue_vue_type_template_id_0c7e5d58___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CalcCreditComponent.vue?vue&type=template&id=0c7e5d58& */ "./resources/js/components/CalcCreditComponent.vue?vue&type=template&id=0c7e5d58&");
+/* harmony import */ var _CalcCreditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CalcCreditComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/CalcCreditComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CalcCreditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CalcCreditComponent_vue_vue_type_template_id_0c7e5d58___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CalcCreditComponent_vue_vue_type_template_id_0c7e5d58___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/CalcCreditComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/CalcCreditComponent.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/CalcCreditComponent.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CalcCreditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./CalcCreditComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalcCreditComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CalcCreditComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/CalcCreditComponent.vue?vue&type=template&id=0c7e5d58&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/CalcCreditComponent.vue?vue&type=template&id=0c7e5d58& ***!
+  \****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CalcCreditComponent_vue_vue_type_template_id_0c7e5d58___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./CalcCreditComponent.vue?vue&type=template&id=0c7e5d58& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/CalcCreditComponent.vue?vue&type=template&id=0c7e5d58&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CalcCreditComponent_vue_vue_type_template_id_0c7e5d58___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CalcCreditComponent_vue_vue_type_template_id_0c7e5d58___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

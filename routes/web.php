@@ -15,6 +15,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'calc'], function(){
     Route::get('/contributions', 'HomeController@calcContribution')->name('calc.contribution');
+    Route::get('/credit/{credit}', 'HomeController@calcCredit')->name('calc.credit');
 });
 
 
