@@ -18,7 +18,6 @@ Route::group(['prefix'=>'calc'], function(){
     Route::get('/credit/{credit}', 'HomeController@calcCredit')->name('calc.credit');
 });
 
-
 Route::group(['prefix'=>'admin', 'namespace'=> 'Admin', 'middleware'=>['auth', 'check_role']], function(){
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
     Route::resource('/types', 'TypeController', ['as'=> 'admin']);
@@ -26,7 +25,6 @@ Route::group(['prefix'=>'admin', 'namespace'=> 'Admin', 'middleware'=>['auth', '
     Route::resource('/contributions', 'ContributionController', ['as'=> 'admin']);
     Route::get('/offers/create/{type}', 'OfferController@create')->name('admin.offers.create');
     Route::resource('/offers', 'OfferController', ['as'=> 'admin', 'except' => ['create']]);
-
 });
 
 Route::group(['prefix'=>'profile', 'middleware'=>['auth']],function (){

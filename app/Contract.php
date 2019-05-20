@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class Contract extends Model
@@ -13,12 +15,31 @@ class Contract extends Model
         'expirationDate',
         'amount',
         'percent',
-        'created_by',
-        'modified_by'
+        'created_at',
+        'updated_at'
     ];
+
+    //скрывает поля при сериализации в toArray
+    protected $hidden =[
+        'id',
+        'account_id',
+        'created_at',
+        'updated_at',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'expirationDate'
+    ];
+
+    protected function serializeDate(DateTimeInterface $date) {
+        return Carbon::parse($date)->format('d.m.Y');
+    }
 
     public function account()
     {
         return $this->belongsTo('App\Account');
     }
+
 }

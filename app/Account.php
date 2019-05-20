@@ -2,20 +2,44 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
     protected $table = 'accounts';
+
+    //разрешает массовое присвооение аттрибутов
     protected $fillable = [
-        'client_id',
         'balance',
-        'created_by',
-        'modified_by',
+        'client_id',
         'offerable_id',
-        'offerable_type'
+        'offerable_type',
+        'created_at',
+        'updated_at',
     ];
 
+    //скрывает поля при сериализации в toArray
+    protected $hidden =[
+        'client_id',
+        'offerable_id',
+        'offerable_type',
+        'updated_at',
+    ];
+
+    //указывает что эти поля являются датами
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    //формат вывода даты
+    protected function serializeDate(DateTimeInterface $date) {
+        return Carbon::parse($date)->format('d.m.Y');
+    }
+
+    //отношения
     public function offerable(){
         return $this->morphTo();
     }
@@ -29,5 +53,7 @@ class Account extends Model
     {
         return $this->belongsTo('App\Client');
     }
+
+
 
 }

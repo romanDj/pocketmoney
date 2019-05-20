@@ -21,7 +21,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('offers-tab-component', require('./components/OffersTabComponent.vue').default);
+Vue.component('accounts-tab-component', require('./components/AccountsTabComponent.vue').default);
 Vue.component('calc-contributions-component', require('./components/CalcContributionsComponent.vue').default);
 Vue.component('calc-credit-component', require('./components/CalcCreditComponent.vue').default);
 

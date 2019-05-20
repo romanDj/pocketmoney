@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
@@ -21,8 +22,8 @@ class Client extends Model
         'issued',
         'dateOfBirth',
         'requirements',
-        'created_by',
-        'modified_by'
+        'created_at',
+        'updated_at'
     ];
 
     public function user()
@@ -35,13 +36,13 @@ class Client extends Model
         return $this->hasMany('App\Account');
     }
 
-    public function getCreatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->format('d.m.Y');
-    }
-    public function getUpdatedAtAttribute($value)
-    {
-        return Carbon::parse($value)->format('d.m.Y');
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    protected function serializeDate(DateTimeInterface $date) {
+        return Carbon::parse($date)->format('d.m.Y');
     }
 
 }

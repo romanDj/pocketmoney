@@ -22,6 +22,7 @@ class RoomController extends Controller
         return view('profile.edit', [ 'user' => Auth::user() ]);
     }
 
+    //изменение данных клиента
     public function update(Request $request){
         Auth::user()->update([
             'name' => $request->input('name'),
@@ -88,14 +89,14 @@ class RoomController extends Controller
         return response()->json($contract,200 ,[],JSON_UNESCAPED_UNICODE);
     }
 
-    public function showAccount(Request $request){
-        return response()->json(  [
-            'contributions' => Account::find(2)->offerable
-        ],200 ,[],JSON_UNESCAPED_UNICODE);
-        return view('profile.accounts', [
-            'contributions' => Contribution:: $request->user()->client->accounts
-        ]);
-    }
 
+    //страница с счетами клиента
+    public function showAccount(Request $request){
+
+        return view('profile.accounts',[
+            'data' => $request->user()->client->accounts->mapToGroups(function ($item, $key) {
+                return [ $item['offerable_type'] => $item->load('offerable', 'contract')]; })
+                ->toJson(JSON_UNESCAPED_UNICODE)]);
+    }
 
 }

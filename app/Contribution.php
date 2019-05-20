@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 
 class Contribution extends Model
@@ -15,9 +17,25 @@ class Contribution extends Model
         'isReplenishment',
         'isWithdrawal',
         'isCapitalization',
-        'created_by',
-        'modified_by'
+        'created_at',
+        'updated_at'
     ];
+
+    //скрывает поля при сериализации в toArray
+    protected $hidden =[
+        'id',
+        'created_at',
+        'updated_at',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
+
+    protected function serializeDate(DateTimeInterface $date) {
+        return Carbon::parse($date)->format('d.m.Y');
+    }
 
     public function accounts()
     {

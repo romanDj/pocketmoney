@@ -10,6 +10,8 @@
 
                 <div class="hr_gradient mb-4"></div>
 
+                <accounts-tab-component :accounts="{{$data}}"></accounts-tab-component>
+
             </div>
         </div>
 

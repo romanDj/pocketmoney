@@ -17,7 +17,7 @@ class Offer extends Model
         'isReplenishment',
         'isWithdrawal',
         'isCapitalization',
-        'created_by',
-        'modified_by'
+        'created_at',
+        'modified_at'
     ];
 }
