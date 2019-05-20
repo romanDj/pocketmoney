@@ -1882,6 +1882,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['contributions', 'url_score'],
   data: function data() {
@@ -1892,7 +1895,8 @@ __webpack_require__.r(__webpack_exports__);
       every: 0,
       compare: false,
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      select_btn: ''
+      select_id: '',
+      select_percent: ''
     };
   },
   mounted: function mounted() {
@@ -1914,8 +1918,9 @@ __webpack_require__.r(__webpack_exports__);
         this[el] = max;
       }
     },
-    selectContribution: function selectContribution(name) {
-      this.select_btn = "".concat(name, " Hi!");
+    selectContribution: function selectContribution(val) {
+      this.select_id = val.id;
+      this.select_percent = val.percent;
     },
     compareWin: function compareWin() {
       this.compare = !this.compare;
@@ -2150,6 +2155,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['contributions', 'url_score', 'credit'],
   data: function data() {
@@ -2160,7 +2171,6 @@ __webpack_require__.r(__webpack_exports__);
       time: 90,
       compare: false,
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      select_btn: '',
       schedule: [],
       months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
     };
@@ -2183,7 +2193,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     selectContribution: function selectContribution(name) {
-      this.select_btn = "".concat(name, " Hi!");
+      return true;
     },
     compareWin: function compareWin() {
       this.compare = !this.compare;
@@ -38001,8 +38011,23 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("input", {
-                            attrs: { type: "hidden", name: "lol" },
-                            domProps: { value: _vm.select_btn }
+                            attrs: { type: "hidden", name: "balance" },
+                            domProps: { value: _vm.summ }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            attrs: { type: "hidden", name: "period" },
+                            domProps: { value: _vm.time }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            attrs: { type: "hidden", name: "percent" },
+                            domProps: { value: _vm.select_percent }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            attrs: { type: "hidden", name: "id" },
+                            domProps: { value: _vm.select_id }
                           }),
                           _vm._v(" "),
                           _c("table", { staticClass: "table table-bordered" }, [
@@ -38063,7 +38088,7 @@ var render = function() {
                                           on: {
                                             click: function($event) {
                                               return _vm.selectContribution(
-                                                item.name
+                                                item
                                               )
                                             }
                                           }
@@ -38400,8 +38425,29 @@ var render = function() {
                           }),
                           _vm._v(" "),
                           _c("input", {
-                            attrs: { type: "hidden", name: "lol" },
-                            domProps: { value: _vm.select_btn }
+                            attrs: { type: "hidden", name: "balance" },
+                            domProps: { value: _vm.summ }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            attrs: { type: "hidden", name: "period" },
+                            domProps: { value: _vm.time }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            attrs: { type: "hidden", name: "percent" },
+                            domProps: { value: _vm.this_credit.percent }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            attrs: { type: "hidden", name: "id" },
+                            domProps: { value: _vm.this_credit.id }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass:
+                              "btn btn-outline-success mb-3 d-block w-100",
+                            attrs: { type: "submit", value: "Открыть кредит" }
                           }),
                           _vm._v(" "),
                           _c(
@@ -51135,8 +51181,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\ospserver\OSPanel\domains\pocketmoney\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\ospserver\OSPanel\domains\pocketmoney\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\rm\OSPanel\domains\pocketmoney\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\rm\OSPanel\domains\pocketmoney\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

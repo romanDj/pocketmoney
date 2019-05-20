@@ -80,7 +80,10 @@
                         </div>
                         <form :action="url_score" method="post">
                             <input type="hidden" name="_token" :value="csrf">
-                            <input type="hidden" name="lol" :value="select_btn">
+                            <input type="hidden" name="balance" :value="summ">
+                            <input type="hidden" name="period" :value="time">
+                            <input type="hidden" name="percent" :value="select_percent">
+                            <input type="hidden" name="id" :value="select_id">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -98,7 +101,7 @@
                                     <td>{{item.full_summ}} Руб.</td>
                                     <td>{{item.rate}}%</td>
                                     <td class="none-print"><input class="btn btn-outline-success"
-                                                                  @click="selectContribution(item.name)"
+                                                                  @click="selectContribution(item)"
                                                                   type="submit" value="Открыть вклад" ></td>
                                 </tr>
 
@@ -128,7 +131,8 @@
                 every: 0,
                 compare: false,
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                select_btn: ''
+                select_id: '',
+                select_percent: ''
             }
         },
         mounted() {
@@ -145,8 +149,9 @@
                     this[el] = max;
                 }
             },
-            selectContribution(name){
-                this.select_btn = `${name} Hi!`;
+            selectContribution(val){
+                this.select_id = val.id;
+                this.select_percent = val.percent;
             },
             compareWin(){
                 this.compare = !this.compare;

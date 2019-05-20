@@ -41,7 +41,7 @@
                                 <a class="nav-link font-weight-bold" href="{{ route('login') }}">Главная</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link font-weight-bold" href="{{ route('login') }}">Счета</a>
+                                <a class="nav-link font-weight-bold" href="{{ route('profile.accounts') }}">Счета</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link font-weight-bold" href="{{ route('login') }}">История</a>

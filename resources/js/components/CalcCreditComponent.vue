@@ -70,7 +70,12 @@
                         </div>
                         <form :action="url_score" method="post">
                             <input type="hidden" name="_token" :value="csrf">
-                            <input type="hidden" name="lol" :value="select_btn">
+                            <input type="hidden" name="balance" :value="summ">
+                            <input type="hidden" name="period" :value="time">
+                            <input type="hidden" name="percent" :value="this_credit.percent">
+                            <input type="hidden" name="id" :value="this_credit.id">
+                            <input type="submit" class="btn btn-outline-success mb-3 d-block w-100" value="Открыть кредит">
+
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -100,6 +105,7 @@
                                     </tr>
                                 </tbody>
                             </table>
+
                         </form>
 
                     </div>
@@ -124,7 +130,6 @@
                 time: 90,
                 compare: false,
                 csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                select_btn: '',
                 schedule: [],
                 months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
             }
@@ -143,7 +148,7 @@
                 }
             },
             selectContribution(name){
-                this.select_btn = `${name} Hi!`;
+                return true;
             },
             compareWin(){
                 this.compare = !this.compare;

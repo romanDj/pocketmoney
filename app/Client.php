@@ -30,6 +30,11 @@ class Client extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function accounts()
+    {
+        return $this->hasMany('App\Account');
+    }
+
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('d.m.Y');

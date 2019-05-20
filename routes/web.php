@@ -19,7 +19,7 @@ Route::group(['prefix'=>'calc'], function(){
 });
 
 
-Route::group(['prefix'=>'admin', 'namespace'=> 'Admin', 'middleware'=>['auth']], function(){
+Route::group(['prefix'=>'admin', 'namespace'=> 'Admin', 'middleware'=>['auth', 'check_role']], function(){
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
     Route::resource('/types', 'TypeController', ['as'=> 'admin']);
     Route::resource('/credits', 'CreditController', ['as'=> 'admin']);
@@ -33,7 +33,10 @@ Route::group(['prefix'=>'profile', 'middleware'=>['auth']],function (){
     Route::get('/', 'RoomController@index')->name('profile.view');
     Route::get('/edit', 'RoomController@edit')->name('profile.edit');
     Route::put('/update', 'RoomController@update')->name('profile.update');
-    Route::post('/score', 'RoomController@openScore')->name('profile.score');
+    Route::post('/open/contribution', 'RoomController@openContribution')->name('profile.open.contribution');
+    Route::post('/open/credit', 'RoomController@openCredit')->name('profile.open.credit');
+    Route::get('/contract/{contract}', 'RoomController@showContract')->name('profile.contract');
+    Route::get('/accounts', 'RoomController@showAccount')->name('profile.accounts');
 });
 
 Auth::routes();

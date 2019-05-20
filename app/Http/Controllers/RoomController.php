@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
+use App\Contract;
+use App\Contribution;
+use App\Credit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -38,8 +42,60 @@ class RoomController extends Controller
         return redirect()->route('profile.view');
     }
 
-    //открытие нового счета
-    public function openScore(Request $request){
-        return response()->json($request->input('lol'),200 ,[],JSON_UNESCAPED_UNICODE);
+    //открытие нового вклада
+    public function openContribution(Request $request){
+        $contribution = Contribution::find($request->input('id'));
+
+        $acc = new Account();
+        $acc->client_id = $request->user()->client->id;
+        $acc->balance = $request->input('balance');
+
+        $contribution->accounts()->save($acc);
+
+        //создание контратка
+        $acc->contract()->create([
+            'period' => $request->input('period'),
+            'amount' => $request->input('balance'),
+            'percent' => $request->input('percent'),
+            'expirationDate' => Carbon::now()->addDays($request->input('period'))
+        ]);
+
+        return redirect()->route('profile.contract',  $acc->contract());
     }
+
+    //открытие нового кредита
+    public function openCredit(Request $request){
+        $credit = Credit::find($request->input('id'));
+
+        $acc = new Account();
+        $acc->client_id = $request->user()->client->id;
+        $acc->balance = $request->input('balance');
+
+        $credit->accounts()->save($acc);
+
+        //создание контратка
+        $acc->contract()->create([
+            'period' => $request->input('period'),
+            'amount' => $request->input('balance'),
+            'percent' => $request->input('percent'),
+            'expirationDate' => Carbon::now()->addMonths($request->input('period'))
+        ]);
+
+        return redirect()->route('profile.contract',  $acc->contract());
+    }
+
+    public function showContract(Contract $contract){
+        return response()->json($contract,200 ,[],JSON_UNESCAPED_UNICODE);
+    }
+
+    public function showAccount(Request $request){
+        return response()->json(  [
+            'contributions' => Account::find(2)->offerable
+        ],200 ,[],JSON_UNESCAPED_UNICODE);
+        return view('profile.accounts', [
+            'contributions' => Contribution:: $request->user()->client->accounts
+        ]);
+    }
+
+
 }

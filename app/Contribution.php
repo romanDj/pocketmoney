@@ -19,4 +19,9 @@ class Contribution extends Model
         'modified_by'
     ];
 
+    public function accounts()
+    {
+        return $this->morphMany('App\Account', 'offerable');
+    }
+
 }
