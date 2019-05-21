@@ -2,17 +2,23 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-           <div class="col-md-9">
+        <div class="row justify-content-center ">
+           <div class="col-md-9 width-for-print">
+               <div class="jumbotron none-print mb-3 p-2">
+                   <div class="d-flex justify-content-between">
+                       <a href="{{route('profile.accounts')}}" ><i class="fas fa-arrow-left"></i> счета</a>
+                       <a href="#" @click.prevent="printWindow"><i class="fas fa-print"></i> печать pdf</a>
+                   </div>
+               </div>
                <div class="card rounded-0">
                  <div class="card-body">
-                     <p style="margin-top: .05pt; text-align: center; tab-stops: 306.95pt 348.55pt;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Кредитный договор № <span style="background: yellow;">Номер договора</span></span></p>
-                     <p style="text-align: right; line-height: 150%; tab-stops: 306.95pt 348.55pt; margin: .05pt 0cm .0001pt 143.05pt;"><span style="font-family: 'Times New Roman','serif'; background: yellow;">Дата</span></p>
-                     <p style="text-align: justify; text-indent: 36.0pt; line-height: 115%; margin: .05pt 0cm .0001pt 0cm;"><span style="font-size: 12.0pt; line-height: 115%; font-family: 'Times New Roman','serif';">ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО &laquo;</span><span style="font-size: 12.0pt; line-height: 115%; font-family: 'Times New Roman','serif';">PocketMoney</span><span style="font-size: 12.0pt; line-height: 115%; font-family: 'Times New Roman','serif';">&raquo; именуемое в дальнейшем &laquo;Кредитор&raquo;, с одной стороны, и <span style="background: yellow;">Вкладчик</span> (ФИО) именуемый в дальнейшем &laquo;Заемщик&raquo;, с другой стороны, заключили настоящий Договор о нижеследующем:</span></p>
+                     <p style="margin-top: .05pt; text-align: center; tab-stops: 306.95pt 348.55pt;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Кредитный договор № {{ $contract->id }}</span></p>
+                     <p style="text-align: right; line-height: 150%; tab-stops: 306.95pt 348.55pt; margin: .05pt 0cm .0001pt 143.05pt;">{{ $contract->created_at->format('d.m.Y') }}</p>
+                     <p style="text-align: justify; text-indent: 36.0pt; line-height: 115%; margin: .05pt 0cm .0001pt 0cm;"><span style="font-size: 12.0pt; line-height: 115%; font-family: 'Times New Roman','serif';">ПУБЛИЧНОЕ АКЦИОНЕРНОЕ ОБЩЕСТВО &laquo;</span><span style="font-size: 12.0pt; line-height: 115%; font-family: 'Times New Roman','serif';">PocketMoney</span><span style="font-size: 12.0pt; line-height: 115%; font-family: 'Times New Roman','serif';">&raquo; именуемое в дальнейшем &laquo;Кредитор&raquo;, с одной стороны, и {{ $contract->account->client->surname }} {{ $contract->account->client->name }} {{ $contract->account->client->patronymic }} (ФИО) именуемый в дальнейшем &laquo;Заемщик&raquo;, с другой стороны, заключили настоящий Договор о нижеследующем:</span></p>
                      <ul>
                          <li style="list-style:none; text-align: center; text-indent: 0cm; line-height: 150%; margin: 12.0pt 0cm .0001pt 0cm;"><span style="font-size: 12.0pt; line-height: 150%; font-family: 'Times New Roman','serif';">1. ПРЕДМЕТ ДОГОВОРА</span></li>
                      </ul>
-                     <p style="text-align: justify; text-indent: 35.45pt; line-height: 115%; tab-stops: 63.85pt 17.0cm;"><span style="font-size: 12.0pt; line-height: 115%; font-family: 'Times New Roman','serif';">1.1. Кредитор обязуется предоставить Заемщику кредит в сумме&nbsp; <span style="letter-spacing: -1.4pt;">&nbsp;</span><u>&nbsp;_</u></span><u><span style="font-size: 12.0pt; line-height: 115%; font-family: 'Times New Roman','serif'; background: yellow;">c</span></u><u><span style="font-size: 12.0pt; line-height: 115%; font-family: 'Times New Roman','serif';">__</span></u></p>
+                     <p style="text-align: justify; text-indent: 35.45pt; line-height: 115%; tab-stops: 63.85pt 17.0cm;"><span style="font-size: 12.0pt; line-height: 115%; font-family: 'Times New Roman','serif';">1.1. Кредитор обязуется предоставить Заемщику кредит в сумме&nbsp; {{$contract->amount}} Руб.</span></p>
                      <p style="margin-top: .05pt; text-align: justify; text-indent: 35.45pt; line-height: 115%; tab-stops: 59.85pt;"><span style="font-size: 12.0pt; line-height: 115%; font-family: 'Times New Roman','serif';">1.2. Кредит предоставляется на потребительские цели.</span></p>
                      <p style="margin-right: 11.75pt; text-align: justify; text-indent: 35.45pt; line-height: 115%; tab-stops: 61.3pt;"><span style="font-size: 12.0pt; line-height: 115%; font-family: 'Times New Roman','serif';">1.3. Заемщик обязуется возвратить Кредитору полученный кредит и уплатить проценты за пользование им в размере, сроки и на условиях настоящего Договора.</span></p>
                      <ul start="2">
@@ -101,7 +107,7 @@
                                  <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">ПАО &laquo;</span><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">PocketMoney</span><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">&raquo;</span></p>
                              </td>
                              <td style="width: 276.1pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;" width="368">
-                                 <p style="text-align: center; text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif'; background: yellow;">ФИО вкладчика</span></p>
+                                 <p style="text-align: center; text-autospace: ideograph-numeric ideograph-other;">{{ $contract->account->client->surname }} {{ $contract->account->client->name }} {{ $contract->account->client->patronymic }}</p>
                              </td>
                          </tr>
                          <tr style="height: 25.1pt;">
@@ -111,21 +117,21 @@
                                  <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">БИК 0000000000</span></p>
                              </td>
                              <td style="width: 276.1pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt; height: 25.1pt;" width="368">
-                                 <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Адрес регистрации: <span style="background: yellow;">Адрес регистрации</span></span></p>
+                                 <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Адрес регистрации: {{ $contract->account->client->address }}</span></p>
                              </td>
                          </tr>
                          <tr>
                              <td style="width: 276.1pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt;" width="368">
-                                 <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Адрес электронной почты: <span style="background: yellow;">Адрес электронной почты</span></span></p>
+                                 <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Адрес электронной почты: {{ $contract->account->client->user->email }}</span></p>
                              </td>
                          </tr>
                          <tr style="height: 29.3pt;">
                              <td style="width: 276.1pt; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0cm 5.4pt 0cm 5.4pt; height: 29.3pt;" width="368">
                                  <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Паспорт</span></p>
-                                 <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Серия: <span style="background: yellow;">Серия</span></span></p>
-                                 <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Номер: <span style="background: yellow;">Номер</span></span></p>
-                                 <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Кем и когда выдан: <span style="background: yellow;">Кем и когда выдан</span></span></p>
-                                 <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Дата рождения</span><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">:</span> <span style="font-size: 12.0pt; font-family: 'Times New Roman','serif'; background: yellow;">Дата рождения</span></p>
+                                 <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Серия: {{ $contract->account->client->series }}</span></p>
+                                 <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Номер: {{ $contract->account->client->number }}</span></p>
+                                 <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Кем и когда выдан: {{ $contract->account->client->issued }} {{ $contract->account->client->dateOfIssues->format('d.m.Y') }}</span></p>
+                                 <p style="text-autospace: ideograph-numeric ideograph-other;"><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">Дата рождения</span><span style="font-size: 12.0pt; font-family: 'Times New Roman','serif';">:</span> {{ $contract->account->client->dateOfBirth->format('d.m.Y') }}</p>
                              </td>
                          </tr>
                          <tr>

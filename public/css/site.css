@@ -25,6 +25,11 @@
     .none-print{
         display: none;
     }
+
+    .width-for-print{
+        max-width: 100% !important;
+        flex: 0 0 100%;
+    }
 }
 
 .text-purple{
@@ -136,4 +141,6 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
     background: #2497E3;
 }
+
+
 

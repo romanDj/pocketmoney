@@ -32,5 +32,10 @@ Vue.component('calc-credit-component', require('./components/CalcCreditComponent
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    methods:{
+        printWindow(){
+            window.print();
+        }
+    }
 });

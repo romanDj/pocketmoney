@@ -37,6 +37,8 @@ class Client extends Model
     }
 
     protected $dates = [
+        'dateOfIssues',
+        'dateOfBirth',
         'created_at',
         'updated_at',
     ];

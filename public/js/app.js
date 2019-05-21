@@ -1795,6 +1795,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['accounts'],
   data: function data() {
@@ -37755,10 +37758,20 @@ var render = function() {
                       return _c("div", { staticClass: "card" }, [
                         _c("div", { staticClass: "card-body" }, [
                           _c("h5", { staticClass: "mb-1 text-left d-block" }, [
-                            _vm._v(_vm._s(account.offerable.name))
+                            _vm._v("Счет #" + _vm._s(account.id))
                           ]),
                           _vm._v(" "),
                           _c("hr"),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "mb-2 text-left" }, [
+                            _vm._v(_vm._s(account.offerable.name))
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "mb-2 text-left" }, [
+                            _vm._v(
+                              _vm._s(account.offerable.percent) + "% годовых"
+                            )
+                          ]),
                           _vm._v(" "),
                           _c(
                             "p",
@@ -37767,6 +37780,20 @@ var render = function() {
                               _vm._v(
                                 "Баланс: " + _vm._s(account.balance) + " Руб."
                               )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "mb-2 text-left d-block",
+                              attrs: {
+                                href: "/profile/contract/" + account.contract.id
+                              }
+                            },
+                            [
+                              _vm._v("Договор "),
+                              _c("i", { staticClass: "fas fa-arrow-right" })
                             ]
                           ),
                           _vm._v(" "),
@@ -50923,7 +50950,12 @@ Vue.component('calc-credit-component', __webpack_require__(/*! ./components/Calc
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  methods: {
+    printWindow: function printWindow() {
+      window.print();
+    }
+  }
 });
 
 /***/ }),
@@ -51280,8 +51312,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\rm\OSPanel\domains\pocketmoney\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\rm\OSPanel\domains\pocketmoney\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\ospserver\OSPanel\domains\pocketmoney\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\ospserver\OSPanel\domains\pocketmoney\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

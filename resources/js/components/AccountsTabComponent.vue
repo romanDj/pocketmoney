@@ -17,9 +17,12 @@
                 <div class="card-columns mb-4" v-show="index == current_tab" v-for="(item, key, index) in accounts">
                     <div class="card" v-for="account in item">
                         <div class="card-body">
-                            <h5 class="mb-1 text-left d-block">{{account.offerable.name}}</h5>
+                            <h5 class="mb-1 text-left d-block">Счет #{{account.id}}</h5>
                             <hr>
+                            <p class="mb-2 text-left">{{account.offerable.name}}</p>
+                            <p class="mb-2 text-left">{{account.offerable.percent}}% годовых</p>
                             <p class="mb-2 text-left text-success">Баланс: {{account.balance}} Руб.</p>
+                            <a class="mb-2 text-left d-block" :href="'/profile/contract/'+account.contract.id">Договор <i class="fas fa-arrow-right"></i></a>
                             <small class="text-left d-block text-secondary">Дата открытия: {{account.created_at}}</small>
                             <small class="text-left d-block text-secondary">Дата закрытия: {{account.contract.expirationDate}}</small>
                         </div>

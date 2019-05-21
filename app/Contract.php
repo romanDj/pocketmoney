@@ -21,13 +21,13 @@ class Contract extends Model
 
     //скрывает поля при сериализации в toArray
     protected $hidden =[
-        'id',
         'account_id',
         'created_at',
         'updated_at',
     ];
 
     protected $dates = [
+        'expirationDate',
         'created_at',
         'updated_at',
         'expirationDate'

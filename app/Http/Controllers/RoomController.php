@@ -87,7 +87,12 @@ class RoomController extends Controller
     }
 
     public function showContract(Contract $contract){
-        return view('contracts.credit');
+        if($contract->account->offerable_type == 'App\Contribution'){
+            return view('contracts.contribution', [ 'contract' => $contract ]);
+        }else{
+            return view('contracts.credit', [ 'contract' => $contract ]);
+        }
+
     }
 
 
@@ -97,7 +102,7 @@ class RoomController extends Controller
         return view('profile.accounts',[
             'data' => $request->user()->client->accounts->mapToGroups(function ($item, $key) {
                 return [ $item['offerable_type'] => $item->load('offerable', 'contract')]; })
-                ->toJson(JSON_UNESCAPED_UNICODE)]);
+                ->sortByDesc('created_at')->toJson(JSON_UNESCAPED_UNICODE)]);
     }
 
 }
