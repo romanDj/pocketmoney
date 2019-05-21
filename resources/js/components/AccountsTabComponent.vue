@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h5 class="text-center text-secondary mb-3" v-if="!accounts">Нет открытых счетов</h5>
-        <div class="card text-center">
+        <h5 class="text-center text-secondary mb-3" v-if="accounts.length == 0 ">Нет открытых счетов</h5>
+        <div class="card text-center" v-else>
 
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
@@ -19,7 +19,7 @@
                         <div class="card-body">
                             <h5 class="mb-1 text-left d-block">{{account.offerable.name}}</h5>
                             <hr>
-                            <p class="mb-2 text-left">Баланс: {{account.balance}} Руб.</p>
+                            <p class="mb-2 text-left text-success">Баланс: {{account.balance}} Руб.</p>
                             <small class="text-left d-block text-secondary">Дата открытия: {{account.created_at}}</small>
                             <small class="text-left d-block text-secondary">Дата закрытия: {{account.contract.expirationDate}}</small>
                         </div>
@@ -39,6 +39,7 @@
             }
         },
         mounted() {
+            console.log(this.accounts);
         }
     }
 </script>

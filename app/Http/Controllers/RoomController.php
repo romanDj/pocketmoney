@@ -51,6 +51,7 @@ class RoomController extends Controller
         $acc->client_id = $request->user()->client->id;
         $acc->balance = $request->input('balance');
 
+
         $contribution->accounts()->save($acc);
 
         //создание контратка
@@ -61,7 +62,7 @@ class RoomController extends Controller
             'expirationDate' => Carbon::now()->addDays($request->input('period'))
         ]);
 
-        return redirect()->route('profile.contract',  $acc->contract());
+        return redirect()->route('profile.contract', $acc->contract);
     }
 
     //открытие нового кредита
@@ -82,11 +83,11 @@ class RoomController extends Controller
             'expirationDate' => Carbon::now()->addMonths($request->input('period'))
         ]);
 
-        return redirect()->route('profile.contract',  $acc->contract());
+        return redirect()->route('profile.contract', $acc->contract);
     }
 
     public function showContract(Contract $contract){
-        return response()->json($contract,200 ,[],JSON_UNESCAPED_UNICODE);
+        return view('contracts.credit');
     }
 
 

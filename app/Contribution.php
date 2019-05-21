@@ -23,7 +23,6 @@ class Contribution extends Model
 
     //скрывает поля при сериализации в toArray
     protected $hidden =[
-        'id',
         'created_at',
         'updated_at',
     ];

@@ -1802,7 +1802,9 @@ __webpack_require__.r(__webpack_exports__);
       current_tab: 0
     };
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    console.log(this.accounts);
+  }
 });
 
 /***/ }),
@@ -37669,72 +37671,58 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    !_vm.accounts
+    _vm.accounts.length == 0
       ? _c("h5", { staticClass: "text-center text-secondary mb-3" }, [
           _vm._v("Нет открытых счетов")
         ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "card text-center" },
-      [
-        _c("div", { staticClass: "card-header" }, [
-          _c(
-            "ul",
-            { staticClass: "nav nav-tabs card-header-tabs" },
-            _vm._l(_vm.accounts, function(item, key, index) {
-              return _c(
-                "li",
-                {
-                  staticClass: "nav-item",
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      _vm.current_tab = index
-                    }
-                  }
-                },
-                [
-                  _c(
-                    "a",
+      : _c(
+          "div",
+          { staticClass: "card text-center" },
+          [
+            _c("div", { staticClass: "card-header" }, [
+              _c(
+                "ul",
+                { staticClass: "nav nav-tabs card-header-tabs" },
+                _vm._l(_vm.accounts, function(item, key, index) {
+                  return _c(
+                    "li",
                     {
-                      class: [
-                        "nav-link",
-                        index == _vm.current_tab ? "active" : ""
-                      ],
-                      attrs: { href: "#" }
+                      staticClass: "nav-item",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.current_tab = index
+                        }
+                      }
                     },
                     [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(
-                            key == "App\\Contribution" ? "Вклады" : "Кредиты"
+                      _c(
+                        "a",
+                        {
+                          class: [
+                            "nav-link",
+                            index == _vm.current_tab ? "active" : ""
+                          ],
+                          attrs: { href: "#" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(
+                                key == "App\\Contribution"
+                                  ? "Вклады"
+                                  : "Кредиты"
+                              )
                           )
+                        ]
                       )
                     ]
                   )
-                ]
+                }),
+                0
               )
-            }),
-            0
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.accounts, function(item, key, index) {
-          return _c(
-            "div",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: index == _vm.current_tab,
-                  expression: "index == current_tab"
-                }
-              ],
-              staticClass: "card-body"
-            },
+            ]),
+            _vm._v(" "),
             _vm._l(_vm.accounts, function(item, key, index) {
               return _c(
                 "div",
@@ -37747,49 +37735,73 @@ var render = function() {
                       expression: "index == current_tab"
                     }
                   ],
-                  staticClass: "card-columns mb-4"
+                  staticClass: "card-body"
                 },
-                _vm._l(item, function(account) {
-                  return _c("div", { staticClass: "card" }, [
-                    _c("div", { staticClass: "card-body" }, [
-                      _c("h5", { staticClass: "mb-1 text-left d-block" }, [
-                        _vm._v(_vm._s(account.offerable.name))
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "mb-2 text-left" }, [
-                        _vm._v("Баланс: " + _vm._s(account.balance) + " Руб.")
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "small",
-                        { staticClass: "text-left d-block text-secondary" },
-                        [_vm._v("Дата открытия: " + _vm._s(account.created_at))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "small",
-                        { staticClass: "text-left d-block text-secondary" },
-                        [
-                          _vm._v(
-                            "Дата закрытия: " +
-                              _vm._s(account.contract.expirationDate)
+                _vm._l(_vm.accounts, function(item, key, index) {
+                  return _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: index == _vm.current_tab,
+                          expression: "index == current_tab"
+                        }
+                      ],
+                      staticClass: "card-columns mb-4"
+                    },
+                    _vm._l(item, function(account) {
+                      return _c("div", { staticClass: "card" }, [
+                        _c("div", { staticClass: "card-body" }, [
+                          _c("h5", { staticClass: "mb-1 text-left d-block" }, [
+                            _vm._v(_vm._s(account.offerable.name))
+                          ]),
+                          _vm._v(" "),
+                          _c("hr"),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            { staticClass: "mb-2 text-left text-success" },
+                            [
+                              _vm._v(
+                                "Баланс: " + _vm._s(account.balance) + " Руб."
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "small",
+                            { staticClass: "text-left d-block text-secondary" },
+                            [
+                              _vm._v(
+                                "Дата открытия: " + _vm._s(account.created_at)
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "small",
+                            { staticClass: "text-left d-block text-secondary" },
+                            [
+                              _vm._v(
+                                "Дата закрытия: " +
+                                  _vm._s(account.contract.expirationDate)
+                              )
+                            ]
                           )
-                        ]
-                      )
-                    ])
-                  ])
+                        ])
+                      ])
+                    }),
+                    0
+                  )
                 }),
                 0
               )
-            }),
-            0
-          )
-        })
-      ],
-      2
-    )
+            })
+          ],
+          2
+        )
   ])
 }
 var staticRenderFns = []
@@ -51268,8 +51280,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\ospserver\OSPanel\domains\pocketmoney\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\ospserver\OSPanel\domains\pocketmoney\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\rm\OSPanel\domains\pocketmoney\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\rm\OSPanel\domains\pocketmoney\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
