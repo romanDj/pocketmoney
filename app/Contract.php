@@ -27,7 +27,6 @@ class Contract extends Model
     ];
 
     protected $dates = [
-        'expirationDate',
         'created_at',
         'updated_at',
         'expirationDate'

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app_admin')
 
 @section('content')
     <div class="container">
@@ -7,7 +7,7 @@
            <div class="col-md-9 width-for-print">
                <div class="jumbotron none-print mb-3 p-2">
                    <div class="d-flex justify-content-between">
-                       <a href="{{route('profile.accounts')}}" ><i class="fas fa-arrow-left"></i> счета</a>
+                       <a href="{{ URL::previous() }}" ><i class="fas fa-arrow-left"></i> счета</a>
                        <a href="#" @click.prevent="printWindow"><i class="fas fa-print"></i> печать pdf</a>
                    </div>
                </div>

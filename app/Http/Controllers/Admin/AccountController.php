@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Offer;
-use App\Type;
+use App\Account;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class OfferController extends Controller
+class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,10 @@ class OfferController extends Controller
      */
     public function index()
     {
-        return view('admin.offers.index',[
-            'offers' => Offer::all()
-        ]);
+        return view('admin.accounts.index', [
+            'data' => Account::all()->mapToGroups(function ($item, $key) {
+                return [ $item['offerable_type'] => $item->load('offerable', 'contract', 'client')]; })
+                ->sortByDesc('created_at')->toJson(JSON_UNESCAPED_UNICODE)]);
     }
 
     /**
@@ -26,12 +26,9 @@ class OfferController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Type $type)
+    public function create()
     {
-//        return response()->json(new Offer(['type_id'=> $type->id]), 200, [], JSON_UNESCAPED_UNICODE);
-        return view('admin.offers.create', [
-            'offer' => new Offer(['type_id'=> $type->id])
-        ]);
+        //
     }
 
     /**
@@ -48,10 +45,10 @@ class OfferController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Offer  $offer
+     * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function show(Offer $offer)
+    public function show(Account $account)
     {
         //
     }
@@ -59,10 +56,10 @@ class OfferController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Offer  $offer
+     * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function edit(Offer $offer)
+    public function edit(Account $account)
     {
         //
     }
@@ -71,10 +68,10 @@ class OfferController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Offer  $offer
+     * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Offer $offer)
+    public function update(Request $request, Account $account)
     {
         //
     }
@@ -82,10 +79,10 @@ class OfferController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Offer  $offer
+     * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Offer $offer)
+    public function destroy(Account $account)
     {
         //
     }

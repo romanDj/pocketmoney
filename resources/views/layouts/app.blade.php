@@ -43,6 +43,9 @@
                                 <a class="nav-link font-weight-bold" href="{{ route('profile.accounts') }}">Счета</a>
                             </li>
                         @endauth
+                            <li class="nav-item">
+                                <a class="nav-link font-weight-bold" href="{{ route('rates') }}">Курсы валют</a>
+                            </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

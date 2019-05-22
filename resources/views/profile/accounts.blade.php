@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        <transition name="fade" appear>
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <div class="d-flex justify-content-between align-items-center flex-wrap mb-2">
@@ -15,6 +16,6 @@
 
             </div>
         </div>
-
+        </transition>
     </div>
 @endsection

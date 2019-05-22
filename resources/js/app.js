@@ -22,6 +22,7 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('accounts-tab-component', require('./components/AccountsTabComponent.vue').default);
+Vue.component('accounts-tab-admin-component', require('./components/AccountsForAdminTabComponent.vue').default);
 Vue.component('calc-contributions-component', require('./components/CalcContributionsComponent.vue').default);
 Vue.component('calc-credit-component', require('./components/CalcCreditComponent.vue').default);
 

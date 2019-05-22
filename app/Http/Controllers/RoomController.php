@@ -92,7 +92,6 @@ class RoomController extends Controller
         }else{
             return view('contracts.credit', [ 'contract' => $contract ]);
         }
-
     }
 
 

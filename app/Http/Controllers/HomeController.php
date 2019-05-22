@@ -42,4 +42,13 @@ class HomeController extends Controller
             'credit' => json_encode($credit,  JSON_UNESCAPED_UNICODE)
         ]);
     }
+
+    public function rates()
+    {
+        return view('rates', [
+            'contributions' => Contribution::all(),
+            'credits' => Credit::all()
+        ]);
+    }
+
 }

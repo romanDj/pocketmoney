@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Type;
+use App\Contract;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class TypeController extends Controller
+class ContractController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        return view('admin.types.index',[
-            'types' => Type::all()
-        ]);
+        //
     }
 
     /**
@@ -27,7 +25,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        return view('admin.types.create');
+        //
     }
 
     /**
@@ -38,56 +36,55 @@ class TypeController extends Controller
      */
     public function store(Request $request)
     {
-        Type::create($request->all());
-        return redirect()->route('admin.types.index');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Type  $type
+     * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function show(Type $type)
+    public function show(Contract $contract)
     {
-        //
+        if($contract->account->offerable_type == 'App\Contribution'){
+            return view('admin.contracts.contribution', [ 'contract' => $contract ]);
+        }else{
+            return view('admin.contracts.credit', [ 'contract' => $contract ]);
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Type  $type
+     * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function edit(Type $type)
+    public function edit(Contract $contract)
     {
-        return view('admin.types.edit',[
-            'type' => $type
-        ]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Type  $type
+     * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Type $type)
+    public function update(Request $request, Contract $contract)
     {
-        $type->update($request->all());
-        return redirect()->route('admin.types.index');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Type  $type
+     * @param  \App\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Type $type)
+    public function destroy(Contract $contract)
     {
-        $type->delete();
-        return redirect()->route('admin.types.index');
+        //
     }
 }

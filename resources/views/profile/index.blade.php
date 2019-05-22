@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        <transition name="fade" appear>
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <div class="d-flex justify-content-between align-items-center flex-wrap mb-2">
@@ -37,7 +38,7 @@
                 </div>
                 <div class="d-flex">
                     <h5>Дата рождения:</h5>
-                    <h5 class="ml-2 text-muted">{{date_format(date_create($user->client->dateOfBirth), 'd.m.Y') ?? 'нет данных' }}</h5>
+                    <h5 class="ml-2 text-muted">{{ $user->client->dateOfBirth ? $user->client->dateOfBirth->format('d.m.Y')  : 'нет данных' }}</h5>
                 </div>
 
                 <hr>
@@ -58,7 +59,7 @@
                 </div>
                 <div class="d-flex">
                     <h5>Дата выдачи:</h5>
-                    <h5 class="ml-2 text-muted">{{ date_format(date_create($user->client->dateOfIssues), 'd.m.Y') ?? 'нет данных' }}</h5>
+                    <h5 class="ml-2 text-muted">{{ $user->client->dateOfIssues ? $user->client->dateOfIssues->format('d.m.Y')  : 'нет данных' }}</h5>
                 </div>
                 <div class="d-flex">
                     <h5>Кем выдан:</h5>
@@ -71,6 +72,6 @@
                 <p class="text-muted">Дата последних изменений аккаунта: {{$user->client->updated_at ?? '-'}}</p>
             </div>
         </div>
-
+        </transition>
     </div>
 @endsection

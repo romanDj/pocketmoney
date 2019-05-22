@@ -1754,6 +1754,152 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AccountsForAdminTabComponent.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AccountsForAdminTabComponent.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['accounts'],
+  data: function data() {
+    return {
+      current_tab: 0,
+      rate: '',
+      percent: '',
+      fio: '',
+      filter_accounts: []
+    };
+  },
+  mounted: function mounted() {
+    console.log(this.accounts);
+    this.filter_accounts = this.accounts;
+  },
+  watch: {
+    rate: function rate() {
+      this.search();
+    },
+    percent: function percent() {
+      this.search();
+    },
+    fio: function fio() {
+      this.search();
+    }
+  },
+  methods: {
+    search: function search() {
+      var _this = this;
+
+      if (this.rate.trim() == '' && this.percent.trim() == '' && this.fio.trim() == '') {
+        this.filter_accounts = this.accounts;
+      } else {
+        this.filter_accounts = {};
+
+        for (var offer in this.accounts) {
+          this.filter_accounts[offer] = this.accounts[offer].filter(function (item) {
+            var initial_fio = item.client.surname + ' ' + item.client.name + ' ' + item.client.patronymic;
+            var initial = {
+              rate: item.offerable.name.toLowerCase(),
+              percent: item.offerable.percent,
+              fio: initial_fio.toLowerCase()
+            };
+
+            var input_fio = _this.fio.toLowerCase().split(' ');
+
+            var input_fio_clear = [];
+
+            for (var i = 0; i < input_fio.length; i++) {
+              input_fio_clear.push(input_fio[i].trim());
+            }
+
+            var search_fio = true;
+
+            for (var _i = 0; _i < input_fio_clear.length; _i++) {
+              if (initial.fio.indexOf(input_fio_clear[_i]) < 0) {
+                search_fio = false;
+                break;
+              }
+            }
+
+            return initial.rate.indexOf(_this.rate.toLowerCase().trim()) >= 0 && String(initial.percent).indexOf(_this.percent.trim()) >= 0 && search_fio == true;
+          });
+        }
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AccountsTabComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AccountsTabComponent.vue?vue&type=script&lang=js& ***!
@@ -37658,6 +37804,294 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AccountsForAdminTabComponent.vue?vue&type=template&id=60b8de02&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AccountsForAdminTabComponent.vue?vue&type=template&id=60b8de02& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm.accounts.length == 0
+      ? _c("h5", { staticClass: "text-center text-secondary mb-3" }, [
+          _vm._v("Нет открытых счетов")
+        ])
+      : _c(
+          "div",
+          { staticClass: "card" },
+          [
+            _c("div", { staticClass: "d-flex flex-wrap bg-white" }, [
+              _c("div", { staticClass: "form-group m-2" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Тариф:")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.rate,
+                      expression: "rate"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.rate },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.rate = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group m-2" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Процент:")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.percent,
+                      expression: "percent"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.percent },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.percent = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group m-2" }, [
+                _c("label", { attrs: { for: "" } }, [_vm._v("Клиент:")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.fio,
+                      expression: "fio"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.fio },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.fio = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-header" }, [
+              _c(
+                "ul",
+                { staticClass: "nav nav-tabs card-header-tabs" },
+                _vm._l(_vm.accounts, function(item, key, index) {
+                  return _c(
+                    "li",
+                    {
+                      staticClass: "nav-item",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          _vm.current_tab = index
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "a",
+                        {
+                          class: [
+                            "nav-link",
+                            index == _vm.current_tab ? "active" : ""
+                          ],
+                          attrs: { href: "#" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(
+                                key == "App\\Contribution"
+                                  ? "Вклады"
+                                  : "Кредиты"
+                              )
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.filter_accounts, function(item, key, index) {
+              return _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: index == _vm.current_tab,
+                      expression: "index == current_tab"
+                    }
+                  ],
+                  staticClass: "card-body p-0"
+                },
+                [
+                  _c(
+                    "table",
+                    { staticClass: "table table-bordered mb-0 table-striped" },
+                    [
+                      _vm._m(0, true),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(item, function(account) {
+                          return _c("tr", [
+                            _c("td", [_vm._v(_vm._s(account.id))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(account.offerable.name))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(account.offerable.percent) + "% годовых"
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(account.balance) + " Руб.")
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(account.client.surname) +
+                                  " " +
+                                  _vm._s(account.client.name) +
+                                  " " +
+                                  _vm._s(account.client.patronymic)
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "small",
+                                {
+                                  staticClass:
+                                    "text-left d-block text-secondary"
+                                },
+                                [
+                                  _vm._v(
+                                    "Открытие: " + _vm._s(account.created_at)
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "small",
+                                {
+                                  staticClass:
+                                    "text-left d-block text-secondary"
+                                },
+                                [
+                                  _vm._v(
+                                    "Закрытие: " +
+                                      _vm._s(account.contract.expirationDate)
+                                  )
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "mb-2 text-left d-block",
+                                  attrs: {
+                                    href:
+                                      "/admin/contract/" + account.contract.id
+                                  }
+                                },
+                                [
+                                  _vm._v("Договор "),
+                                  _c("i", { staticClass: "fas fa-arrow-right" })
+                                ]
+                              )
+                            ])
+                          ])
+                        }),
+                        0
+                      )
+                    ]
+                  )
+                ]
+              )
+            })
+          ],
+          2
+        )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Тариф")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Процент")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Баланс")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Клиент")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Сроки")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Действия")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AccountsTabComponent.vue?vue&type=template&id=6d67344e&":
 /*!***********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AccountsTabComponent.vue?vue&type=template&id=6d67344e& ***!
@@ -50941,6 +51375,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('accounts-tab-component', __webpack_require__(/*! ./components/AccountsTabComponent.vue */ "./resources/js/components/AccountsTabComponent.vue")["default"]);
+Vue.component('accounts-tab-admin-component', __webpack_require__(/*! ./components/AccountsForAdminTabComponent.vue */ "./resources/js/components/AccountsForAdminTabComponent.vue")["default"]);
 Vue.component('calc-contributions-component', __webpack_require__(/*! ./components/CalcContributionsComponent.vue */ "./resources/js/components/CalcContributionsComponent.vue")["default"]);
 Vue.component('calc-credit-component', __webpack_require__(/*! ./components/CalcCreditComponent.vue */ "./resources/js/components/CalcCreditComponent.vue")["default"]);
 /**
@@ -51015,6 +51450,75 @@ if (token) {
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/AccountsForAdminTabComponent.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/AccountsForAdminTabComponent.vue ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AccountsForAdminTabComponent_vue_vue_type_template_id_60b8de02___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AccountsForAdminTabComponent.vue?vue&type=template&id=60b8de02& */ "./resources/js/components/AccountsForAdminTabComponent.vue?vue&type=template&id=60b8de02&");
+/* harmony import */ var _AccountsForAdminTabComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AccountsForAdminTabComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/AccountsForAdminTabComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AccountsForAdminTabComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AccountsForAdminTabComponent_vue_vue_type_template_id_60b8de02___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AccountsForAdminTabComponent_vue_vue_type_template_id_60b8de02___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/AccountsForAdminTabComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/AccountsForAdminTabComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/AccountsForAdminTabComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountsForAdminTabComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AccountsForAdminTabComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AccountsForAdminTabComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountsForAdminTabComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/AccountsForAdminTabComponent.vue?vue&type=template&id=60b8de02&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/AccountsForAdminTabComponent.vue?vue&type=template&id=60b8de02& ***!
+  \*************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountsForAdminTabComponent_vue_vue_type_template_id_60b8de02___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AccountsForAdminTabComponent.vue?vue&type=template&id=60b8de02& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AccountsForAdminTabComponent.vue?vue&type=template&id=60b8de02&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountsForAdminTabComponent_vue_vue_type_template_id_60b8de02___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AccountsForAdminTabComponent_vue_vue_type_template_id_60b8de02___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -51312,8 +51816,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\ospserver\OSPanel\domains\pocketmoney\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\ospserver\OSPanel\domains\pocketmoney\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\rm\OSPanel\domains\pocketmoney\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\rm\OSPanel\domains\pocketmoney\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
