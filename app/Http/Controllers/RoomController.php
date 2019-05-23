@@ -104,4 +104,14 @@ class RoomController extends Controller
                 ->sortByDesc('created_at')->toJson(JSON_UNESCAPED_UNICODE)]);
     }
 
+    public function showPayment(Account $account)
+    {
+        return view('profile.payments', [
+            'summ' => $account->contract->amount,
+            'period' => $account->contract->period,
+            'percent' => $account->contract->percent,
+            'created_at' => $account->created_at
+        ]);
+    }
+
 }

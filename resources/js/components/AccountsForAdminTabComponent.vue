@@ -2,7 +2,12 @@
     <div>
         <h5 class="text-center text-secondary mb-3" v-if="accounts.length == 0 ">Нет открытых счетов</h5>
         <div class="card" v-else>
+            <div class="m-1 border border-right border-success">
+                <h6 class="text-purple font-weight-bold m-2">Сумма всех вкладов: {{summ_all_contributions}} Руб. </h6>
+                <h6 class="text-purple font-weight-bold m-2">Сумма всех выданных кредитов: {{summ_all_credits}} Руб. </h6>
+            </div>
 
+            <hr class="m-0">
             <div class="d-flex flex-wrap bg-white">
                 <div class="form-group m-2">
                     <label for="">Тариф:</label>
@@ -16,17 +21,21 @@
                     <label for="">Клиент:</label>
                     <input type="text" v-model="fio" class="form-control">
                 </div>
+
             </div>
 
             <hr>
 
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-end">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item" v-for="(item, key, index) in accounts" @click.prevent="current_tab=index">
                         <a :class="['nav-link', index == current_tab ? 'active' : '' ]"   href="#">
                             {{ key == 'App\\Contribution' ? 'Вклады' : 'Кредиты' }}</a>
                     </li>
                 </ul>
+
+                <a href="#" class="btn btn-outline-primary" @click.prevent="sortByDate">Сортировка по дате <i :class="['fas', date_asc ? 'fa-arrow-up' : 'fa-arrow-down' ]"></i></a>
+
             </div>
 
             <div class="card-body p-0"  v-show="index == current_tab" v-for="(item, key, index) in filter_accounts">
@@ -70,6 +79,7 @@
         data(){
             return {
                 current_tab: 0,
+                date_asc: false,
                 rate: '',
                 percent: '',
                 fio: '',
@@ -77,8 +87,29 @@
             }
         },
         mounted() {
-            console.log(this.accounts);
             this.filter_accounts = this.accounts;
+        },
+        computed:{
+            summ_all_contributions(){
+                if (this.accounts['App\\Contribution']){
+                    let local_summ = 0;
+                    for(let i = 0; i < this.accounts['App\\Contribution'].length; i++){
+                       local_summ += Number(this.accounts['App\\Contribution'][i].balance);
+                    }
+                    return local_summ;
+                }
+                return 0;
+            },
+            summ_all_credits(){
+                if (this.accounts['App\\Credit']){
+                    let local_summ = 0;
+                    for(let i = 0; i < this.accounts['App\\Credit'].length; i++){
+                        local_summ += Number(this.accounts['App\\Credit'][i].balance);
+                    }
+                    return local_summ;
+                }
+                return 0;
+            },
         },
         watch:{
             rate: function(){
@@ -92,6 +123,31 @@
             }
         },
         methods:{
+            getDateObj(val){
+                let str_to_arr = val.split('.');
+                let year = Number(str_to_arr[2]);
+                let month = Number(str_to_arr[1]) - 1;
+                let day = Number(str_to_arr[0]);
+                return new Date(year, month, day);
+            },
+            sortByDate(){
+                if(this.date_asc != true){
+                    this.date_asc = !this.date_asc;
+
+                    for(let offer in this.filter_accounts){
+                        this.filter_accounts[offer] = this.filter_accounts[offer].sort( (a, b)=>{
+                            return this.getDateObj(b.created_at) - this.getDateObj(a.created_at);
+                        });
+                    }
+                }else{
+                    this.date_asc = !this.date_asc;
+                    for(let offer in this.filter_accounts){
+                        this.filter_accounts[offer] = this.filter_accounts[offer].sort( (a, b)=>{
+                            return this.getDateObj(a.created_at) - this.getDateObj(b.created_at);
+                        });
+                    }
+                }
+            },
             search(){
                 if(this.rate.trim() == '' && this.percent.trim() == '' && this.fio.trim() == '' ){
                     this.filter_accounts = this.accounts;

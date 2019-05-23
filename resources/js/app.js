@@ -8,7 +8,9 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-
+// Vue.config.devtools = false;
+// Vue.config.debug = false;
+// Vue.config.silent = true;
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -25,6 +27,7 @@ Vue.component('accounts-tab-component', require('./components/AccountsTabCompone
 Vue.component('accounts-tab-admin-component', require('./components/AccountsForAdminTabComponent.vue').default);
 Vue.component('calc-contributions-component', require('./components/CalcContributionsComponent.vue').default);
 Vue.component('calc-credit-component', require('./components/CalcCreditComponent.vue').default);
+Vue.component('payments-component', require('./components/PaymentsComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

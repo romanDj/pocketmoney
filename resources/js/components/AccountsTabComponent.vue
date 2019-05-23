@@ -12,7 +12,7 @@
                 </ul>
             </div>
 
-            <div class="card-body" v-show="index == current_tab" v-for="(item, key, index) in accounts">
+            <div class="card-body">
 
                 <div class="card-columns mb-4" v-show="index == current_tab" v-for="(item, key, index) in accounts">
                     <div class="card" v-for="account in item">
@@ -23,6 +23,7 @@
                             <p class="mb-2 text-left">{{account.offerable.percent}}% годовых</p>
                             <p class="mb-2 text-left text-success">Баланс: {{account.balance}} Руб.</p>
                             <a class="mb-2 text-left d-block" :href="'/profile/contract/'+account.contract.id">Договор <i class="fas fa-arrow-right"></i></a>
+                            <a class="mb-2 text-left d-block" v-if="key == 'App\\Credit'" :href="'/profile/payments/'+account.id">График платежей <i class="fas fa-arrow-right"></i></a>
                             <small class="text-left d-block text-secondary">Дата открытия: {{account.created_at}}</small>
                             <small class="text-left d-block text-secondary">Дата закрытия: {{account.contract.expirationDate}}</small>
                         </div>
