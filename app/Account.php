@@ -20,6 +20,9 @@ class Account extends Model
         'updated_at',
     ];
 
+    //добавление кастомных полей
+    protected $appends = ['count_history'];
+
     //скрывает поля при сериализации в toArray
     protected $hidden =[
         'client_id',
@@ -57,6 +60,11 @@ class Account extends Model
     public function history()
     {
         return $this->hasMany('App\History');
+    }
+
+    public function getCountHistoryAttribute()
+    {
+        return $this->history()->count();
     }
 
 }
