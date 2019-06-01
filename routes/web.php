@@ -36,6 +36,7 @@ Route::group(['prefix'=>'profile', 'middleware'=>['auth']],function (){
     Route::get('/contract/{contract}', 'RoomController@showContract')->name('profile.contract');
     Route::get('/accounts', 'RoomController@showAccount')->name('profile.accounts');
     Route::get('/payments/{account}', 'RoomController@showPayment')->name('profile.payments');
+    Route::match(['get', 'post'], '/receipts/{account}', 'RoomController@receipts')->name('profile.receipts');
 });
 
 Auth::routes();

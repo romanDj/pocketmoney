@@ -74,6 +74,7 @@
                             <input type="hidden" name="period" :value="time">
                             <input type="hidden" name="percent" :value="this_credit.percent">
                             <input type="hidden" name="id" :value="this_credit.id">
+                            <input type="hidden" name="monthly_payment" :value="this_credit.payment">
                             <input type="submit" class="btn btn-outline-success mb-3 d-block w-100" value="Открыть кредит">
 
                             <table class="table table-bordered table-striped">

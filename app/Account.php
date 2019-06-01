@@ -54,6 +54,9 @@ class Account extends Model
         return $this->belongsTo('App\Client');
     }
 
-
+    public function history()
+    {
+        return $this->hasMany('App\History');
+    }
 
 }

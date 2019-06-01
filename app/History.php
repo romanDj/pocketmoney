@@ -6,17 +6,14 @@ use Carbon\Carbon;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class Contract extends Model
+class History extends Model
 {
-    protected $table = 'contracts';
+    protected $table = 'history';
     protected $fillable = [
         'account_id',
-        'period',
-        'expirationDate',
+        'name',
         'amount',
-        'percent',
         'created_at',
-        'monthly_payment',
         'updated_at'
     ];
 
@@ -30,7 +27,6 @@ class Contract extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'expirationDate'
     ];
 
     protected function serializeDate(DateTimeInterface $date) {
@@ -41,5 +37,4 @@ class Contract extends Model
     {
         return $this->belongsTo('App\Account');
     }
-
 }

@@ -80,7 +80,8 @@ class RoomController extends Controller
             'period' => $request->input('period'),
             'amount' => $request->input('balance'),
             'percent' => $request->input('percent'),
-            'expirationDate' => Carbon::now()->addMonths($request->input('period'))
+            'expirationDate' => Carbon::now()->addMonths($request->input('period')),
+            'monthly_payment' => $request->input('monthly_payment')
         ]);
 
         return redirect()->route('profile.contract', $acc->contract);
@@ -93,7 +94,6 @@ class RoomController extends Controller
             return view('contracts.credit', [ 'contract' => $contract ]);
         }
     }
-
 
     //страница с счетами клиента
     public function showAccount(Request $request){
@@ -114,4 +114,35 @@ class RoomController extends Controller
         ]);
     }
 
+    public  function receipts(Account $account, Request $request){
+
+        if($request->isMethod('post')){
+
+            $account->history()->create([
+                'amount' => $account->contract->monthly_payment,
+                'name' => 'Ежемесячный платеж по кредиту'
+            ]);
+
+            $account->update([
+                'balance' => $account->balance > 0 ? ($account->balance -  $account->contract->monthly_payment) : 0
+            ]);
+
+            return redirect()->route('profile.accounts');
+        }
+
+        $thisMonth = true;
+        $thisDate = Carbon::now();
+
+        foreach($account->history as $item){
+            if($thisDate->month == $item->created_at->month
+                && $thisDate->year == $item->created_at->year){
+                $thisMonth = false;
+            }
+        }
+
+        return view('profile.receipts',[
+            'monthly_payment' => $account->contract->monthly_payment,
+            'thisMonth' =>  $thisMonth
+        ]);
+    }
 }
