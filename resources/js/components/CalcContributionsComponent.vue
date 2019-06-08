@@ -84,6 +84,7 @@
                             <input type="hidden" name="period" :value="time">
                             <input type="hidden" name="percent" :value="select_percent">
                             <input type="hidden" name="id" :value="select_id">
+                            <div class="overflow-auto w-100">
                             <table class="table table-bordered">
                                 <thead>
                                 <tr>
@@ -107,6 +108,7 @@
 
                                 </tbody>
                             </table>
+                            </div>
                         </form>
 
                     </div>

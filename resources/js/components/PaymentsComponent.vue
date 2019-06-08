@@ -6,7 +6,7 @@
             <transition name="fade" appear>
                 <div class="row position-relative justify-content-center" key="compare">
 
-                    <div class="col-md-12 ">
+                    <div class="col-md-12 overflow-auto">
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>

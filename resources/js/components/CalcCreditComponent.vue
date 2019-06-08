@@ -76,7 +76,7 @@
                             <input type="hidden" name="id" :value="this_credit.id">
                             <input type="hidden" name="monthly_payment" :value="this_credit.payment">
                             <input type="submit" class="btn btn-outline-success mb-3 d-block w-100" value="Открыть кредит">
-
+                            <div class="overflow-auto w-100">
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -106,7 +106,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-
+                            </div>
                         </form>
 
                     </div>
